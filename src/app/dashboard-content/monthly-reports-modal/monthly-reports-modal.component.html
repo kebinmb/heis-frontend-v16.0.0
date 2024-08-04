@@ -1,0 +1,33 @@
+<!-- memo-modal.component.html -->
+<div class="wrapper">
+    <div class="container">
+      <div class="row" id="modalTitle">
+        <h2>Monthly Sender and Receivers</h2>
+      </div>
+      <div class="row mb-3">
+        <div class="col">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Document Number</th>
+                <th>Document Sender</th>
+                <th>Document Receiver</th>
+                <th>Document Receiver Name</th>
+                <th>Document Timestamp</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let sender of data.documentNumber; let i = index">
+                <td>{{sender}}</td>
+                <td>{{ data.name[i] }}</td>
+                <td>{{data.attention[i]}}</td>
+                <td>{{data.receiverName[i]}}</td>
+                <td>{{ data.from[i] }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  

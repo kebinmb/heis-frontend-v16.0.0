@@ -1,0 +1,18 @@
+.container{
+    width: 100rem;
+    height: auto;
+    padding-bottom:10px;
+    padding-top:10px;
+}
+
+.footer{
+    border-top: 1px solid black;
+}
+
+#documentNumber{
+    font-size:12px;
+}
+#timestamp{
+    font-size: 12px;
+}
+

@@ -1,0 +1,26 @@
+<!-- memo-modal.component.html -->
+<div class="wrapper">
+  <div class="container">
+    <div class="row" id="modalTitle">
+      <h2>{{ title }}</h2>
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Document Number</th>
+              <th>Document Timestamp</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let memo of data.memos; let i = index">
+              <td>{{ memo }}</td>
+              <td>{{ data.timestamp[i] }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
