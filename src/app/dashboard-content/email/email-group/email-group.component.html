@@ -208,8 +208,8 @@
       </div>
       <button type="submit" class="btn btn-primary">Send Email</button>
     </form>
-    <div class="mt-4">
-      <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+    <div class="spinner-overlay" *ngIf="loading">
+      <mat-spinner mode="indeterminate" color="primary"></mat-spinner>
     </div>
   </div>
 </div>

@@ -25,26 +25,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-email-multiple',
-  standalone: true,
   templateUrl: './email-multiple.component.html',
   styleUrls: ['./email-multiple.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    FormsModule,
-    MatButtonModule,
-    MatIconModule,
-    ReactiveFormsModule,
-    CommonModule,
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatNativeDateModule,
-    MatInputModule,
-    MatOptionModule,
-    MatSelectModule,
-    MatAutocompleteModule,
-    MatProgressBarModule,
-    MatCheckboxModule,
-  ],
+  
 })
 export class EmailMultipleComponent implements OnInit {
   emailForm: FormGroup;

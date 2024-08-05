@@ -18,8 +18,8 @@ body {
     padding: 0;
   }
   
-  /* Wrapper to center the form */
-  .wrapper {
+  
+  /* .wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -30,15 +30,26 @@ body {
     margin-top:10vh;
   }
   
-  /* Container to hold the form */
+  
   .container {
     max-width: 900px;
     background-color: #fff;
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  } */
+  .spinner-overlay {
+    position: fixed; /* Fixed positioning to cover the entire viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex; /* Flexbox to center the spinner */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it's on top of other content */
   }
-  
   .mt-4 {
     margin-top: 1.5rem;
   }

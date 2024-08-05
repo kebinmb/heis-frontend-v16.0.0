@@ -8,6 +8,7 @@ import { EmailIndividualComponent } from './dashboard-content/email/email-indivi
 import { ReportsComponent } from './dashboard-content/reports/reports.component';
 import { InstitutionComponent } from './dashboard-content/institution/institution.component';
 import { RecipientsComponent } from './dashboard-content/institution/recipients/recipients.component';
+import { NewDocumentComponent } from './new-document/new-document.component';
 export const routes: Routes = [
   {
     path: '',
@@ -20,7 +21,8 @@ export const routes: Routes = [
       { path:'emultiple',component:EmailMultipleComponent},
       { path:'reports',component:ReportsComponent},
       { path:'institutions',component:InstitutionComponent},
-      { path:'recipients', component:RecipientsComponent}
+      { path:'recipients', component:RecipientsComponent},
+      { path:'new-document',component:NewDocumentComponent}
      
       
       

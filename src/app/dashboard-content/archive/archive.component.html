@@ -1,3 +1,4 @@
+<app-spinner [isLoading]="isLoading"></app-spinner>
 <div class="wrapper">
   <div class="container">
     <div class="table-container">
@@ -11,11 +12,6 @@
         />
       </mat-form-field>
 
-      <!-- Progress Spinner -->
-      <div class="spinner-container" *ngIf="isLoading">
-        <mat-spinner></mat-spinner>
-      </div>
-
       <!-- Table for Monthly Reports -->
       <div id="monthlyReportsTable" *ngIf="!isLoading && dataSourceArchives">
         <div id="printHeader" class="print-header">
@@ -25,7 +21,7 @@
           mat-table
           [dataSource]="dataSourceArchives"
           matSort
-          class="report-table"
+          #sort = "matSort"
         >
           <!-- Document Number Column -->
           <ng-container matColumnDef="documentNumber">

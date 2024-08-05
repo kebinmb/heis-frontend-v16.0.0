@@ -18,23 +18,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-email-group',
-  standalone: true,
-  imports: [
-    FormsModule,
-    MatButtonModule,
-    MatIconModule,
-    ReactiveFormsModule,
-    CommonModule,
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatNativeDateModule,
-    MatInputModule,
-    MatOptionModule,
-    MatSelectModule,
-    MatAutocompleteModule,
-    MatProgressBarModule,
-    MatCheckboxModule,
-  ],
   templateUrl: './email-group.component.html',
   styleUrls: ['./email-group.component.css'],
 })

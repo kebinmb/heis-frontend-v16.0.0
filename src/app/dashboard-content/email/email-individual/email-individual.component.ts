@@ -29,22 +29,6 @@ import { FormArrayException } from '../../exceptions/formArrayException';
 
 @Component({
   selector: 'app-email-individual',
-  standalone: true,
-  imports: [
-    FormsModule,
-    MatButtonModule,
-    MatIconModule,
-    ReactiveFormsModule,
-    CommonModule,
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatNativeDateModule,
-    MatInputModule,
-    MatOptionModule,
-    MatSelectModule,
-    MatAutocompleteModule,
-    MatProgressBarModule,
-  ],
   templateUrl: './email-individual.component.html',
   styleUrls: ['./email-individual.component.css'],
 })
@@ -223,7 +207,7 @@ export class EmailIndividualComponent implements OnInit {
           this.loading = false;
           alert('Document was sent successfully');
           this.emailForm.reset();
-          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigateByUrl('/new-document', { skipLocationChange: true }).then(() => {
             this.router.navigate([this.router.url]);
           });
         },
