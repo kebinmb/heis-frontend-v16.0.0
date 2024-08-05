@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable, switchMap } from 'rxjs';
+import { Observable, of, switchMap, combineLatest } from 'rxjs';
 import { UserArchiveState } from './archives-user-state-manager/archives-users.reducer';
 import { ArchiveState } from './archives-state-manager/archives.reducer';
 import { ArchiveService } from './archive.service';
@@ -21,8 +21,7 @@ import { DocumentDetailsModalComponent } from './document-details-modal/document
 })
 export class ArchiveComponent implements OnInit {
   @ViewChild('paginatorArchives', { static: true }) paginatorArchives: MatPaginator;
-  @ViewChild(MatSort) sortArchives:MatSort;
-  
+  @ViewChild(MatSort) sortArchives: MatSort;
 
   displayedColumnsArchives: string[] = [
     'documentNumber',
@@ -34,13 +33,10 @@ export class ArchiveComponent implements OnInit {
   ];
 
   archivesArray$: Observable<any[]>;
-  archives: any[];
-
   userListArray$: Observable<any[]>;
-  users: any[];
-
-  finalArchivesArray: any[];
-
+  archives: any[] = [];
+  users: any[] = [];
+  finalArchivesArray: any[] = [];
   dataSourceArchives: MatTableDataSource<any>;
 
   selectedMonth: string;
@@ -63,7 +59,9 @@ export class ArchiveComponent implements OnInit {
   isLoading: boolean = false;
 
   constructor(
-    private store: Store<{ userList: UserArchiveState; archives: ArchiveState }>,public dialog: MatDialog, private archivesService:ArchiveService
+    private store: Store<{ userList: UserArchiveState; archives: ArchiveState }>,
+    public dialog: MatDialog,
+    private archivesService: ArchiveService
   ) {
     this.archivesArray$ = this.store.pipe(select(selectArchive));
     this.userListArray$ = this.store.pipe(select(selectUserList));
@@ -74,68 +72,85 @@ export class ArchiveComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(loadUserArchiveList());
-    this.store.dispatch(loadArchiveList());
-   
-    this.loadArchivesWithReceiver();
+    this.isLoading = true;
+
+    // Fetch users and archives from the store
+    combineLatest([this.userListArray$, this.archivesArray$]).pipe(
+      switchMap(([users, archives]) => {
+        if (users && users.length > 0) {
+          // Use cached users from the state
+          console.log('Using cached users from the state');
+          this.users = users;
+        } else {
+          // Dispatch action to load users if not available
+          this.store.dispatch(loadUserArchiveList());
+        }
+        if (archives && archives.length > 0) {
+          // Use cached archives from the state
+          console.log('Using cached archives from the state');
+          this.archives = archives;
+          this.finalArchivesArray = this.processArchivesAndCache(); // Process and cache final archives
+        } else {
+          // Dispatch action to load archives if not available
+          this.store.dispatch(loadArchiveList());
+        }
+
+        // Update data source
+        this.dataSourceArchives = new MatTableDataSource(this.finalArchivesArray);
+        this.dataSourceArchives.sort = this.sortArchives;
+        this.dataSourceArchives.paginator = this.paginatorArchives;
+        this.isLoading = false; // Set loading to false once data is loaded
+        return of(this.finalArchivesArray); // Return processed archives to complete the observable
+      })
+    ).subscribe(
+      () => {
+        // Data is already processed and set in dataSourceArchives
+      },
+      error => {
+        console.error('Error loading data:', error);
+        this.isLoading = false; // Set loading to false on error
+      }
+    );
   }
+
   openDialog(document: any): void {
     const dialogRef = this.dialog.open(DocumentDetailsModalComponent, {
-      width: '80vw', // Set the width to 80% of the viewport width
-      maxWidth: '95vw', // Set the maximum width to 90% of the viewport width
-      maxHeight: '100vh', // Set the maximum height to 90% of the viewport height
-      height: '80vh', // Set the height to 70% of the viewport height
-      data:document
+      width: '80vw',
+      maxWidth: '95vw',
+      maxHeight: '100vh',
+      height: '80vh',
+      data: document
     });
   }
 
-  loadArchivesWithReceiver() {
-    this.isLoading = true;
-    this.userListArray$
-      .pipe(
-        switchMap((users) => {
-          this.users = users;
-          return this.archivesArray$;
-        })
-      )
-      .subscribe(
-        (archives) => {
-          this.archives = archives;
-          this.finalArchivesArray = this.archives.map((archive) => {
-            const user = this.users.find(
-              (user) => user.userId.toString() === archive.attention
-            );
-            const sender = this.users.find(
-              (sender) => sender.userId.toString() === archive.from
-            );
-  
-            const receiverNames = archive.attention
-              ? archive.attention.split(',').map((att: string) => {
-                  const receiver = this.users.find(
-                    (user) => user.userId.toString() === att.trim()
-                  );
-                  return receiver ? receiver.name : 'Unknown Receiver';
-                })
-              : [];
-  
-            return {
-              ...archive,
-              userName: user ? user.name : 'Unknown User',
-              userNameSender: sender ? sender.name : 'Unknown Sender',
-              receiverNames: receiverNames // Array of receiver names
-            };
-          });
-          console.log("Final:",this.finalArchivesArray)
-          this.dataSourceArchives = new MatTableDataSource(this.finalArchivesArray);
-          this.dataSourceArchives.sort = this.sortArchives;
-          this.dataSourceArchives.paginator = this.paginatorArchives;
-          this.isLoading = false;
-        },
-        (error) => {
-          console.error('Error loading data:', error);
-          this.isLoading = false;
-        }
+  processArchivesAndCache() {
+    const finalArchives = this.archives.map((archive) => {
+      const user = this.users.find(
+        (user) => user.userId.toString() === archive.attention
       );
+      const sender = this.users.find(
+        (sender) => sender.userId.toString() === archive.from
+      );
+
+      const receiverNames = archive.attention
+        ? archive.attention.split(',').map((att: string) => {
+            const receiver = this.users.find(
+              (user) => user.userId.toString() === att.trim()
+            );
+            return receiver ? receiver.name : 'Unknown Receiver';
+          })
+        : [];
+
+      return {
+        ...archive,
+        userName: user ? user.name : 'Unknown User',
+        userNameSender: sender ? sender.name : 'Unknown Sender',
+        receiverNames: receiverNames // Array of receiver names
+      };
+    });
+
+    console.log("Final:", finalArchives);
+    return finalArchives;
   }
 
   applyFilter(event: Event) {
@@ -166,6 +181,4 @@ export class ArchiveComponent implements OnInit {
       this.dataSourceArchives.data = this.finalArchivesArray;
     }
   }
-
-  
 }

@@ -63,6 +63,7 @@ import { UserNamesEffects } from './dashboard-content/reports/user-name-state-ma
 import { UserEffects } from './dashboard-content/reports/user-list-state-manager/userlist.effects';
 import { DailyReportEffects } from './dashboard-content/reports/daily-reports-state-manager/daily-reports.effects';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -71,6 +72,7 @@ import { DailyReportEffects } from './dashboard-content/reports/daily-reports-st
     DashboardComponent,
     HeaderComponent,
     SidebarComponent,
+  
   ],
   imports: [
     BrowserModule,
