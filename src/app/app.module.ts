@@ -63,6 +63,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { NewDocumentComponent } from './new-document/new-document.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatOptionModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -125,7 +126,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     NgxPrintModule,
     HttpClientModule,
     MatSnackBarModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatOptionModule
   
 ],
   providers: [],

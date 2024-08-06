@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { catchError, map, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, of, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -55,6 +55,49 @@ editDepartmentDetails(id: number, department: any): Observable<any> {
 deleteDepartment(id: number) {
   return this.http.delete(`${this.apiServerUrl}/department/del/${id}`);
 }
+
+addNewUser(formData: any): Observable<any> {
+  return this.http.post<any>(`${this.apiServerUrl}/department/new/user`, formData).pipe(
+    catchError(this.handleErrorDetailed('addNewUser', formData))
+  );
+}
+
+getTotalUser(){
+  return this.http.get(`${this.apiServerUrl}/department/user/total`,{responseType:'text'}).pipe(
+    map((response:any)=>{
+      try{
+        return JSON.parse(response);
+      }catch(e){
+        console.error('Failed to parse response');
+        return [];
+      }
+    })
+  );
+}
+
+
+
+
+private handleErrorDetailed<T>(operation = 'operation', formData?: FormData) {
+  return (error: any): Observable<T> => {
+    // Log the error to the console or remote logging infrastructure
+    console.error(`${operation} failed: ${error.message}`);
+    console.error(`Form Data: ${JSON.stringify(formData)}`);
+    console.error('Error Details:', error);
+
+    // TODO: Send the error to remote logging infrastructure
+    // log to a backend server, etc.
+
+    // Return a user-friendly error message
+    return throwError({
+      status: error.status,
+      message: `An error occurred while trying to ${operation}: ${error.message}`,
+      error: error.error
+    });
+  };
+}
+
+
 
 private handleError(error: HttpErrorResponse): Observable<never> {
   // Handle the error here (log it, transform it, etc.)

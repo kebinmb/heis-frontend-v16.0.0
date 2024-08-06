@@ -26,20 +26,29 @@
             </mat-form-field>
           </div>
   
-          <div class="row">
-            <mat-form-field appearance="fill" class="col">
-              <mat-label>Department ID</mat-label>
-              <input matInput formControlName="departmentId" type="number" />
-              <mat-error *ngIf="recipientForm.get('departmentId')?.hasError('required')">
-                Department ID is required.
-              </mat-error>
-            </mat-form-field>
-          </div>
+         <div class="row">
+          <mat-form-field appearance="fill" class="col">
+            <mat-label>Department</mat-label>
+            <mat-select formControlName="departmentId" placeholder="Select a department" >
+              <mat-option *ngFor="let department of departments" [value]="department.departmentId">
+                {{ department.departmentTitle }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="recipientForm.get('departmentId')?.hasError('required')">
+              Department is required.
+            </mat-error>
+          </mat-form-field>
+         </div>
   
           <div class="row">
             <mat-form-field appearance="fill" class="col">
               <mat-label>Campus</mat-label>
-              <input matInput formControlName="campus" type="number" />
+              <mat-select formControlName = "campus" placeholder="Select a campus">
+                <mat-option [value]=1> Alijis </mat-option>
+                <mat-option [value]=4> Talisay </mat-option>
+                <mat-option [value]=2> Binalbagan </mat-option>
+                <mat-option [value]=3> Fortune Towne </mat-option>
+              </mat-select>
               <mat-error *ngIf="recipientForm.get('campus')?.hasError('required')">
                 Campus is required.
               </mat-error>
@@ -69,7 +78,12 @@
           <div class="row">
             <mat-form-field appearance="fill" class="col">
               <mat-label>Employee Type</mat-label>
-              <input matInput formControlName="employeeType" />
+             <mat-select formControlName = "employeeType" placeholder="Select an employee Type">
+              <mat-option value="faculty">Faculty</mat-option>
+              <mat-option value="part-time">Part-Time</mat-option>
+              <mat-option value="staff">Staff</mat-option>
+              <mat-option value="job-order">Job-order</mat-option>
+             </mat-select>
               <mat-error *ngIf="recipientForm.get('employeeType')?.hasError('required')">
                 Employee Type is required.
               </mat-error>
@@ -79,8 +93,11 @@
           <div class="row">
             <mat-form-field appearance="fill" class="col">
               <mat-label>Permanence</mat-label>
-              <input matInput formControlName="permanence" />
-              <mat-error *ngIf="recipientForm.get('permanence')?.hasError('required')">
+              <mat-select formControlName = "permanent" placeholder="Select an if permanent">
+                <mat-option value=1>Permanent</mat-option>
+                <mat-option value=0>Not Permanent</mat-option>
+              </mat-select>
+              <mat-error *ngIf="recipientForm.get('permanent')?.hasError('required')">
                 Permanence is required.
               </mat-error>
             </mat-form-field>
@@ -89,14 +106,17 @@
           <div class="row">
             <mat-form-field appearance="fill" class="col">
               <mat-label>User Type</mat-label>
-              <input matInput formControlName="userType" type="number" />
+              <mat-select formControlName="userType" placeholder="Select an user type">
+                <mat-option value=1>Permanent User</mat-option>
+                <mat-option value=2>External User</mat-option>
+              </mat-select>
               <mat-error *ngIf="recipientForm.get('userType')?.hasError('required')">
                 User Type is required.
               </mat-error>
             </mat-form-field>
           </div>
   
-          <div class="row">
+          <!-- <div class="row">
             <mat-form-field appearance="fill" class="col">
               <mat-label>Email Receiver</mat-label>
               <input matInput formControlName="emailReceiver" type="number" />
@@ -104,7 +124,7 @@
                 Email Receiver is required.
               </mat-error>
             </mat-form-field>
-          </div>
+          </div> -->
   
           <div class="row">
             <mat-form-field appearance="fill" class="col">

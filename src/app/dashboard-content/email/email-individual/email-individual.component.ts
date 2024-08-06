@@ -207,8 +207,9 @@ export class EmailIndividualComponent implements OnInit {
           this.loading = false;
           alert('Document was sent successfully');
           this.emailForm.reset();
-          this.router.navigateByUrl('/new-document', { skipLocationChange: true }).then(() => {
+          this.router.navigateByUrl('/archives', { skipLocationChange: true }).then(() => {
             this.router.navigate([this.router.url]);
+            window.location.reload();
           });
         },
         error: (error) => {

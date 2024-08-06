@@ -189,7 +189,7 @@ export class EmailMultipleComponent implements OnInit {
       formData.append('attachment', file);
     });
 
-      
+    this.loading = true;
       formData.append('documentNumber', this.nextDocumentNumber.toString());
       formData.append('subject', subject);
       formData.append('dateOfLetter', this.formatDate(dateOfLetter));
@@ -209,15 +209,16 @@ export class EmailMultipleComponent implements OnInit {
       formData.append('pageCount', pageCount.toString());
       formData.append('message', message);
       formData.append('departmentId', this.departmentId[0]);
-      this.loading = true;
+      
 
       this.emailMultipleService.sendEmail(formData).subscribe({
         next: () => {
           this.loading = false;
           alert('Document was sent successfully');
           this.emailForm.reset();
-          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigateByUrl('/archives', { skipLocationChange: true }).then(() => {
             this.router.navigate([this.router.url]);
+            window.location.reload();
           });
         },
         error: (error) => {

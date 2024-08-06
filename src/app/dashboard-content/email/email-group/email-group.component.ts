@@ -145,8 +145,9 @@ export class EmailGroupComponent implements OnInit {
             console.log('Document sent and file uploaded successfully:', response);
             alert('Document was sent successfully');
             this.emailForm.reset();
-            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigateByUrl('/archives', { skipLocationChange: true }).then(() => {
               this.router.navigate([this.router.url]);
+              window.location.reload();
             });
           },
           error: (error) => {

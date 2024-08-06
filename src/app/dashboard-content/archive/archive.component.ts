@@ -83,9 +83,8 @@ export class ArchiveComponent implements OnInit {
         } else {
           this.store.dispatch(loadArchiveList());
         }
-  
+        
         this.dataSourceArchives = new MatTableDataSource(this.finalArchivesArray);
-        this.dataSourceArchives.sort = this.sortArchives;
         this.dataSourceArchives.paginator = this.paginatorArchives;
   
         // Return an observable that completes after a delay
@@ -97,22 +96,16 @@ export class ArchiveComponent implements OnInit {
       () => {
         // Set isLoading to false after the delay
         this.isLoading = false;
+        this.dataSourceArchives.sort = this.sortArchives;
+        this.sortArchives.sort({ id: 'timestamp', start: 'desc', disableClear: true });
+        
+        
       },
       error => {
         console.error('Error loading data:', error);
         this.isLoading = false;
       }
     );
-  }
-
-  openDialog(document: any): void {
-    const dialogRef = this.dialog.open(DocumentDetailsModalComponent, {
-      width: '80vw',
-      maxWidth: '95vw',
-      maxHeight: '100vh',
-      height: '80vh',
-      data: document
-    });
   }
 
   processArchivesAndCache() {
@@ -136,6 +129,19 @@ export class ArchiveComponent implements OnInit {
     console.log("Final:", finalArchives);
     return finalArchives;
   }
+  
+
+  openDialog(document: any): void {
+    const dialogRef = this.dialog.open(DocumentDetailsModalComponent, {
+      width: '80vw',
+      maxWidth: '95vw',
+      maxHeight: '100vh',
+      height: '80vh',
+      data: document
+    });
+  }
+
+  
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
