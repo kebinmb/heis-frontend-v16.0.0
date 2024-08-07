@@ -19,12 +19,16 @@ import { selectUserInstitutionList, selectUserInstitutionListFailure, selectUser
 import { MatTableModule } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { RecipientModalComponent } from '../recipient-modal/recipient-modal.component';
+import { EditRecipientsModalComponent } from '../edit-recipients-modal/edit-recipients-modal.component';
+import { ConfirmDialogComponent } from '../confirmdialog/confirmdialog.component';
+import { InstitutionService } from '../institution.service';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @Component({
   selector: 'app-recipients',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatPaginatorModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatCardModule, ReactiveFormsModule, FormsModule, MatButtonModule],
+  imports: [CommonModule,MatSnackBarModule, MatTableModule, MatPaginatorModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatCardModule, ReactiveFormsModule, FormsModule, MatButtonModule],
   templateUrl: './recipients.component.html',
   styleUrls: ['./recipients.component.css']
 })
@@ -48,7 +52,7 @@ export class RecipientsComponent {
 
   @ViewChild(MatPaginator) paginatorUser: MatPaginator;
 
-  constructor(public dialog: MatDialog, private store: Store<{ institutionList: InstitutionState, userInstitutionList: UserInstitutionState }>) {
+  constructor(private snackBar: MatSnackBar,private institutionService:InstitutionService,public dialog: MatDialog, private store: Store<{ institutionList: InstitutionState, userInstitutionList: UserInstitutionState }>) {
     this.institutionListsArray$ = this.store.pipe(select(selectInstitutionList));
     this.loadingInstitution$ = this.store.pipe(select(selectInstitutionLoading));
     this.errorInstitution$ = this.store.pipe(select(selectInstitutionError));
@@ -85,10 +89,10 @@ export class RecipientsComponent {
   loadUserInstitutionList() {
     combineLatest([this.institutionListsArray$, this.userInstitutionListArray$]).pipe(
       map(([institutions, users]) => {
+        
         return users.map(user => {
           // Find the corresponding institution based on departmentId
           const institution = institutions.find(inst => inst.departmentId === user.departmentId);
-
           return {
             ...user,
             departmentName: institution ? institution.departmentTitle : "Unknown Institution" // Assign the institution name
@@ -96,6 +100,7 @@ export class RecipientsComponent {
         });
       })
     ).subscribe(finalArray => {
+      this.options = finalArray;
       this.finalInstitutionArray = finalArray;
       // Uncomment these lines if you want to use the data source for a table
       this.dataSource.data = this.finalInstitutionArray;
@@ -110,7 +115,7 @@ export class RecipientsComponent {
       maxWidth: '600px', // Optional: set a max width if needed
       height: 'auto',
       maxHeight: '80vh',
-      data: this.options
+      // data: this.options
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -118,20 +123,65 @@ export class RecipientsComponent {
       // Handle any result here
     });
   }
-  // openDialogEdit(department: any): void {
-  //   const dialogRef = this.dialog.open(EditInstitutionModalComponent, {
-  //     width: '500px',
-  //     data: {
-  //       department,
-  //       userArray: this.userArray // Pass the userArray within the data object
-  //     }
-  //   });
+  openDialogEdit(user: any): void {
+    const dialogRef = this.dialog.open(EditRecipientsModalComponent, {
+      width: '500px',
+      data: {
+        userId: user.userId,       // Pass the selected user data
+        userArray: this.userArray // Pass the user array
+      }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // Handle any result here if needed
+    });
+  }
 
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log('The dialog was closed');
-  //     // Handle any result here if needed
-  //   });
-  // }
+
+  
+  deleteUser(userId: any) {
+    // Open the confirmation dialog
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '500px',
+      data: { message: 'Are you sure you want to proceed?' }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'confirm') {
+        console.log(userId);
+        // Call the deleteDepartment method from the service
+        this.institutionService.deleteUser(userId).subscribe({
+          next: () => {
+            // Show snackbar for successful deletion
+            const snackBarRef = this.snackBar.open('User deleted successfully', 'Close', {
+              duration: 3000,
+              verticalPosition: 'top',
+              horizontalPosition: 'right',
+            });
+  
+            // Refresh data after snackbar is dismissed
+            snackBarRef.afterDismissed().subscribe(() => {
+              this.refreshData(); // Call refreshData after snackbar is dismissed
+            });
+          },
+          error: (err) => {
+            // Show snackbar for error
+            this.snackBar.open('An error occurred while deleting the user. Please try again later.', 'Close', {
+              duration: 5000,
+              verticalPosition: 'top',
+              horizontalPosition: 'right',
+            });
+          }
+        });
+      }
+    });
+  }
+
+  private refreshData(): void {
+    this.loadUserInstitutionList();
+    window.location.reload() // Reload the institutions data
+  }
 
 
 

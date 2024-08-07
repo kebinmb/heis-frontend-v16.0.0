@@ -14,3 +14,72 @@
   align-items: center;
   margin-top: 16px;
 }
+
+/* Style for the wrapper to add margin and padding */
+.wrapper {
+  margin-left: 200px;
+  padding: 16px;
+  margin-top:10vh;
+}
+
+/* Style for the table container */
+.table-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Space between elements */
+}
+
+/* Style the header title */
+.header-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Style the table to ensure readability */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Style the table header cells */
+th.mat-header-cell {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+/* Style the table data cells */
+td.mat-cell {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Add spacing to the action links */
+.action-link {
+  margin-right: 8px;
+  text-decoration: none;
+  color: #007bff; /* Primary color for links */
+}
+
+/* Style for the controls section */
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+
+/* Style the add button */
+.add-button {
+  margin-right: 16px;
+}
+
+/* Ensure paginator is styled consistently */
+mat-paginator {
+  margin-top: 16px;
+}
+
+.add-button {
+  margin-right: 16px;
+}

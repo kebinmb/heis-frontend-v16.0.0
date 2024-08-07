@@ -56,6 +56,10 @@ deleteDepartment(id: number) {
   return this.http.delete(`${this.apiServerUrl}/department/del/${id}`);
 }
 
+deleteUser(id: number) {
+  return this.http.delete(`${this.apiServerUrl}/department/del/user/${id}`);
+}
+
 addNewUser(formData: any): Observable<any> {
   return this.http.post<any>(`${this.apiServerUrl}/department/new/user`, formData).pipe(
     catchError(this.handleErrorDetailed('addNewUser', formData))
@@ -75,7 +79,13 @@ getTotalUser(){
   );
 }
 
-
+editUserDetails(id: number, user: any): Observable<any> {
+  return this.http.put<any>(`${this.apiServerUrl}/department/edit/user/${id}`, user, {
+    responseType: 'json'
+  }).pipe(
+    catchError(this.handleError)
+  );
+}
 
 
 private handleErrorDetailed<T>(operation = 'operation', formData?: FormData) {

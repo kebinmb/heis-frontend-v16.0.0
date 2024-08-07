@@ -9,6 +9,7 @@ import { ReportsComponent } from './dashboard-content/reports/reports.component'
 import { InstitutionComponent } from './dashboard-content/institution/institution.component';
 import { RecipientsComponent } from './dashboard-content/institution/recipients/recipients.component';
 import { NewDocumentComponent } from './new-document/new-document.component';
+import { LoginComponent } from './login/login.component';
 export const routes: Routes = [
   {
     path: '',
@@ -28,7 +29,7 @@ export const routes: Routes = [
       
     ]
   },
-  // { path:'login',component:LoginComponent},
+  { path:'login',component:LoginComponent},
   // { path:'file',component:FileUploadComponent},
   { path: '**', redirectTo: '' } // Wildcard route for a 404 page or redirect to home
   ];

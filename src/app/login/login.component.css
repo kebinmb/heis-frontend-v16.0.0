@@ -1,0 +1,37 @@
+.login-card {
+    max-width: 360px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .form-field {
+    width: 100%;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .submit-button {
+    width: 100%;
+  }
+  
+  .additional-links {
+    text-align: center;
+    margin-top: 15px;
+  }
+  
+  .additional-links a {
+    display: block;
+    margin: 5px 0;
+    font-size: 14px;
+  }
+  

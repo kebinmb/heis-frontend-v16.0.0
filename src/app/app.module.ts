@@ -64,6 +64,8 @@ import { NewDocumentComponent } from './new-document/new-document.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatOptionModule } from '@angular/material/core';
+import { EditRecipientsModalComponent } from './dashboard-content/institution/edit-recipients-modal/edit-recipients-modal.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +79,9 @@ import { MatOptionModule } from '@angular/material/core';
     NewDocumentComponent,
     EmailIndividualComponent,
     EmailGroupComponent,
-    EmailMultipleComponent
+    EmailMultipleComponent,
+    EditRecipientsModalComponent,
+    LoginComponent
  
   ],
   imports: [

@@ -46,13 +46,13 @@
 
       <!-- Actions Column -->
       <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let user">
-          <!-- Add your action buttons or links here -->
-          <!-- <button mat-button (click)="editUser(user)">Edit</button>
-            <button mat-button (click)="deleteUser(user)">Delete</button> -->
+          <a (click)="openDialogEdit(user)" class="action-link">Edit</a>
+          <a (click) = "deleteUser(user.userId)" class="action-link">Delete</a>
         </td>
       </ng-container>
+      
 
       <!-- Table Header and Rows -->
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
