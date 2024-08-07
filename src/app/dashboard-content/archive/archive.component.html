@@ -3,15 +3,15 @@
   <div class="container">
     <div class="table-container">
       <!-- Search Field -->
-      <mat-form-field appearance="outline" class="search-field">
+      <mat-form-field appearance="fill" class="search-field">
         <mat-label>Search</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Search with Document Number" />
       </mat-form-field>
 
       <!-- Table for Monthly Reports -->
-      <div id="monthlyReportsTable" >
+      <div id="monthlyReportsTable">
         <div id="printHeader" class="print-header">
-          <h1>Report Header</h1>
+          <h1>Monthly Reports</h1>
         </div>
         <table mat-table [dataSource]="dataSourceArchives" matSort>
           <!-- Document Number Column -->
@@ -46,6 +46,7 @@
                 <ng-container *ngSwitchCase="3">Special Orders</ng-container>
                 <ng-container *ngSwitchCase="4">President's Memo</ng-container>
                 <ng-container *ngSwitchCase="5">Other Memo's</ng-container>
+                <ng-container *ngSwitchDefault>Unknown</ng-container>
               </ng-container>
             </td>
           </ng-container>
@@ -70,7 +71,7 @@
           <ng-container matColumnDef="timestamp">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Timestamp</th>
             <td mat-cell *matCellDef="let element">
-              {{ element.timestamp | date : "MMMM dd, yyyy" }}
+              {{ element.timestamp | date:'MMMM d, y' }}
             </td>
           </ng-container>
 
@@ -81,7 +82,7 @@
       </div>
 
       <!-- Paginator -->
-      <mat-paginator #paginatorArchives [pageSizeOptions]="[10,20,30,40,50,60,70,80,90,100]" showFirstLastButtons
+      <mat-paginator #paginatorArchives [pageSizeOptions]="[10, 20, 30, 40, 50]" showFirstLastButtons
         class="paginator"></mat-paginator>
 
       <!-- Input fields for Month and Year -->

@@ -189,4 +189,12 @@
       z-index: 1000; /* Ensure spinner is above other content */
     }
   }
+
+  .print-button {
+    margin-top: 20px;
+  }
+  
+  .paginator {
+    margin-top: 20px;
+  }
   

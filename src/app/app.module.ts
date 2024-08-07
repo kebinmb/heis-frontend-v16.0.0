@@ -66,6 +66,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatOptionModule } from '@angular/material/core';
 import { EditRecipientsModalComponent } from './dashboard-content/institution/edit-recipients-modal/edit-recipients-modal.component';
 import { LoginComponent } from './login/login.component';
+import { LogsComponent } from './logs/logs.component';
+import { userLogsReducer } from './logs/logs-user-state-manager/logs-user.reducer';
+import { UserLogsEffects } from './logs/logs-user-state-manager/logs-user.effects';
 
 @NgModule({
   declarations: [
@@ -81,7 +84,8 @@ import { LoginComponent } from './login/login.component';
     EmailGroupComponent,
     EmailMultipleComponent,
     EditRecipientsModalComponent,
-    LoginComponent
+    LoginComponent,
+    LogsComponent
  
   ],
   imports: [
@@ -100,10 +104,11 @@ import { LoginComponent } from './login/login.component';
         user: userArchiveReducer,
         archives: archiveReducer,
         institution: institutionReducer,
-        userInstitution: userInstitutionReducer
+        userInstitution: userInstitutionReducer,
+        userLogs:userLogsReducer
     }),
     EffectsModule.forRoot([
-        DailyReportEffects, UserEffects, UserNamesEffects, MonthlyReportsEffects, DepartmentEffects, DepartmentNamesEffect, ExternalReportsEffects, DepartmentUserNameEffects, ArchiveEffects, UserArchiveEffects, InstitutionEffects, UserInstitutionEffects
+        DailyReportEffects, UserEffects, UserNamesEffects, MonthlyReportsEffects, DepartmentEffects, DepartmentNamesEffect, ExternalReportsEffects, DepartmentUserNameEffects, ArchiveEffects, UserArchiveEffects, InstitutionEffects, UserInstitutionEffects,UserLogsEffects
     ]),
     MatDialogModule,
     RouterModule.forRoot(routes),

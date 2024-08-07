@@ -11,22 +11,26 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   username: string = '';
   password: string = '';
+  private secretKey: string = 'chmsu.edu.ph.secret-key.secret';
   constructor(private loginService:LoginService,private routes:Router){}
   
   
   onLogin() {
     this.loginService.loginAuthentication(this.username, this.password).subscribe(
       {
+       
         next:(response:any) =>
           {
-            const hashedUsername = CryptoJS.SHA256(response.username).toString(CryptoJS.enc.Hex);
-            const hashedAccessLevel = CryptoJS.SHA256(response.accessLevel.toString()).toString(CryptoJS.enc.Hex);
-            const hashedCampus = CryptoJS.SHA256(response.campus).toString(CryptoJS.enc.Hex);
-            const hasedName= CryptoJS.SHA256(response.name).toString(CryptoJS.enc.Hex);
-            sessionStorage.setItem("username",hashedUsername);
-            sessionStorage.setItem("access_level",hashedAccessLevel.toString());
-            sessionStorage.setItem("campus",hashedCampus);
-            sessionStorage.setItem("name",hasedName);
+            console.log(response.username)
+            const encryptedUsername = CryptoJS.AES.encrypt(response.username.toString(), this.secretKey).toString();
+            const encryptedAccessLevel = CryptoJS.AES.encrypt(response.accessLevel.toString(), this.secretKey).toString();
+            const encryptedCampus = CryptoJS.AES.encrypt(response.campus.toString(), this.secretKey).toString();
+            const encryptedName = CryptoJS.AES.encrypt(response.name.toString(), this.secretKey).toString();
+    
+            sessionStorage.setItem("username", encryptedUsername);
+            sessionStorage.setItem("access_level", encryptedAccessLevel);
+            sessionStorage.setItem("campus", encryptedCampus);
+            sessionStorage.setItem("name", encryptedName);
             this.routes.navigate(["/dashboard"]);
             alert("Login Successful");
           },

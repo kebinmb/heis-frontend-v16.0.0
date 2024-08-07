@@ -10,6 +10,7 @@ import { InstitutionComponent } from './dashboard-content/institution/institutio
 import { RecipientsComponent } from './dashboard-content/institution/recipients/recipients.component';
 import { NewDocumentComponent } from './new-document/new-document.component';
 import { LoginComponent } from './login/login.component';
+import { LogsComponent } from './logs/logs.component';
 export const routes: Routes = [
   {
     path: '',
@@ -23,7 +24,8 @@ export const routes: Routes = [
       { path:'reports',component:ReportsComponent},
       { path:'institutions',component:InstitutionComponent},
       { path:'recipients', component:RecipientsComponent},
-      { path:'new-document',component:NewDocumentComponent}
+      { path:'new-document',component:NewDocumentComponent},
+      { path:'logs',component:LogsComponent}
      
       
       
