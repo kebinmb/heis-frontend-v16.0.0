@@ -11,31 +11,33 @@ import { RecipientsComponent } from './dashboard-content/institution/recipients/
 import { NewDocumentComponent } from './new-document/new-document.component';
 import { LoginComponent } from './login/login.component';
 import { LogsComponent } from './logs/logs.component';
+import { AuthGuardService } from './auth/auth-guard.service';
+import { LogoutComponent } from './logout/logout.component';
 export const routes: Routes = [
   {
     path: '',
+    component: LoginComponent  // Set LoginComponent as the default route
+  },
+  {
+    path: 'dashboard',
     component: DashboardComponent,
+    canActivate:[AuthGuardService],
     children: [
-      
-      { path: 'archives', component:ArchiveComponent},
-      { path: 'egroup', component:EmailGroupComponent},
-      { path:'eindvidual',component:EmailIndividualComponent},
-      { path:'emultiple',component:EmailMultipleComponent},
-      { path:'reports',component:ReportsComponent},
-      { path:'institutions',component:InstitutionComponent},
-      { path:'recipients', component:RecipientsComponent},
-      { path:'new-document',component:NewDocumentComponent},
-      { path:'logs',component:LogsComponent}
-     
-      
-      
+      { path: 'archives', component: ArchiveComponent, canActivate: [AuthGuardService] },
+      { path: 'egroup', component: EmailGroupComponent, canActivate: [AuthGuardService] },
+      { path: 'eindvidual', component: EmailIndividualComponent, canActivate: [AuthGuardService] },
+      { path: 'emultiple', component: EmailMultipleComponent, canActivate: [AuthGuardService] },
+      { path: 'reports', component: ReportsComponent, canActivate: [AuthGuardService] },
+      { path: 'institutions', component: InstitutionComponent, canActivate: [AuthGuardService] },
+      { path: 'recipients', component: RecipientsComponent, canActivate: [AuthGuardService] },
+      { path: 'new-document', component: NewDocumentComponent, canActivate: [AuthGuardService] },
+      { path: 'logs', component: LogsComponent, canActivate: [AuthGuardService] }
     ]
   },
-  { path:'login',component:LoginComponent},
-  // { path:'file',component:FileUploadComponent},
+  { path: 'logout', component: LogoutComponent },
+  { path: 'login', component: LoginComponent },
   { path: '**', redirectTo: '' } // Wildcard route for a 404 page or redirect to home
-  ];
-
+];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
