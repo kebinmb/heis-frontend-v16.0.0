@@ -17,9 +17,9 @@
 
 /* Style for the wrapper to add margin and padding */
 .wrapper {
-  margin-left: 200px;
-  padding: 16px;
-  margin-top:10vh;
+  padding: 0px 40px 40px 40px;
+  margin-left: 220px;
+  margin-top: 10vh;
 }
 
 /* Style for the table container */
