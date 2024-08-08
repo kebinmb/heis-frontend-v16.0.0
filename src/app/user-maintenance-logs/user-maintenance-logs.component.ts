@@ -1,19 +1,18 @@
 import { Component } from '@angular/core';
-import { LogsService } from '../logs/logs.service';
-import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { UserLogsState } from '../logs/logs-user-state-manager/logs-user.reducer';
+import { LogsService } from '../logs/logs.service';
 import { selectUserLogsFailure, selectUserLogsList, selectUserLogsLoading } from '../logs/logs-user-state-manager/logs-user.selector';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { loadUserLogsList } from '../logs/logs-user-state-manager/logs-user.actions';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import * as CryptoJS from 'crypto-js';
-
 @Component({
-  selector: 'app-logs-document',
-  templateUrl: './logs-document.component.html',
-  styleUrls: ['./logs-document.component.css']
+  selector: 'app-user-maintenance-logs',
+  templateUrl: './user-maintenance-logs.component.html',
+  styleUrls: ['./user-maintenance-logs.component.css']
 })
-export class LogsDocumentComponent {
+export class UserMaintenanceLogsComponent {
   logs: any[] = [];
   currentDate: string;
   userArray: any[] = [];
@@ -54,14 +53,14 @@ displayedColumns: string[] = ['date', 'userName', 'action'];
     console.log('Decrypted Campus:', decryptedCampus);
 
     // Use the decrypted value or handle null case
-    this.loadDocumentProcessingLogs(this.currentDate, decryptedCampus);
+    this.loadUserMaintenanceLogs(this.currentDate, decryptedCampus);
   }
 
-  loadDocumentProcessingLogs(date: string, campus: any | null) {
-    this.logsService.getDocumentLogs(date, campus).subscribe({
+  loadUserMaintenanceLogs(date: string, campus: any | null) {
+    this.logsService.getUserMaintenanceLogs(date, campus).subscribe({
       next: (response) => {
         this.logs = response;
-        console.log("Document Logs:",this.logs);
+        console.log(this.logs);
         this.userLogsListArray$.subscribe(userList => {
           this.userArray = userList;
           // Assuming userList is an array of users and you want to find users matching log userId
@@ -73,7 +72,7 @@ displayedColumns: string[] = ['date', 'userName', 'action'];
             };
           });
         });
-        console.log("Final Logs:",this.finalLogsArray)
+        console.log("Final Logs User Mainte:",this.finalLogsArray)
       },
       error: (error) => {
         console.error(error);
@@ -105,7 +104,7 @@ displayedColumns: string[] = ['date', 'userName', 'action'];
       }
 
       console.log('Decrypted Campus:', decryptedCampus);
-      this.loadDocumentProcessingLogs(this.currentDate, decryptedCampus);
+      this.loadUserMaintenanceLogs(this.currentDate, decryptedCampus);
     }
   }
 

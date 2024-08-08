@@ -72,6 +72,7 @@ import { UserLogsEffects } from './logs/logs-user-state-manager/logs-user.effect
 import { LogoutComponent } from './logout/logout.component';
 import { AlertComponent } from './alert/alert.component';
 import { LogsDocumentComponent } from './logs-document/logs-document.component';
+import { UserMaintenanceLogsComponent } from './user-maintenance-logs/user-maintenance-logs.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +92,8 @@ import { LogsDocumentComponent } from './logs-document/logs-document.component';
     LogsComponent,
     LogoutComponent,
     AlertComponent,
-    LogsDocumentComponent
+    LogsDocumentComponent,
+    UserMaintenanceLogsComponent
  
   ],
   imports: [
