@@ -1,45 +1,46 @@
 /* logs.component.css */
 .wrapper {
-    margin-left: 200px;
-    padding: 16px;
-    margin-top:10vh;
-  }
+  padding: 0px 40px 40px 40px;
+  margin-left: 220px;
+  margin-top: 10vh;
+}
 mat-card {
-    margin: 20px;
-  }
-  
-  mat-spinner {
-    display: block;
-    margin: 0 auto;
-  }
-  
-  table {
-    width: 100%;
-  }
-  
-  th.mat-header-cell, td.mat-cell {
-    text-align: left;
-  }
-  
-  mat-error {
-    color: red;
-    font-size: 1.2em;
-  }
-  .date-picker {
-    margin-bottom: 16px;
-    width: 100%;
+  margin: 20px;
+}
+
+mat-spinner {
+  display: block;
+  margin: 0 auto;
+}
+
+table {
+  width: 100%;
+}
+
+th.mat-header-cell,
+td.mat-cell {
+  text-align: left;
+}
+
+mat-error {
+  color: red;
+  font-size: 1.2em;
+}
+.date-picker {
+  margin-bottom: 16px;
+  width: 100%;
 }
 
 .loading-container {
-    text-align: center;
-    padding: 20px;
+  text-align: center;
+  padding: 20px;
 }
 
 .error-message {
-    color: red;
-    margin-top: 20px;
+  color: red;
+  margin-top: 20px;
 }
 
 .mat-elevation-z4 {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
 }

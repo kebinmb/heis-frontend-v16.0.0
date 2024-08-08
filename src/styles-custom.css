@@ -2,11 +2,19 @@
 
 /* Define your color palette */
 :root {
-    --mat-primary: green;       /* Primary color */
-    --mat-accent: orange;       /* Secondary color */
-    --mat-warn: red;            /* Error color */
-    --mat-background: white;    /* Background color (optional) */
-    --mat-text: gray;           /* Text color for every component */
+  --mat-primary: green; /* Primary color */
+  --mat-accent: orange; /* Secondary color */
+  --mat-warn: red; /* Error color */
+  --mat-background: white; /* Background color (optional) */
+  --mat-text: gray; /* Text color for every component */
+  --bg-color: #f5f5f5;
+  --bg-color: #efefef;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 /* Apply the primary color to Angular Material buttons */
@@ -16,41 +24,41 @@
 .mat-icon-button.mat-primary,
 .mat-fab.mat-primary,
 .mat-mini-fab.mat-primary {
-    background-color: var(--mat-primary) !important;
-    color: white; /* Text color for buttons */
+  background-color: var(--mat-primary) !important;
+  color: white; /* Text color for buttons */
 }
 
 .mat-raised-button.mat-primary:hover,
 .mat-flat-button.mat-primary:hover,
 .mat-stroked-button.mat-primary:hover {
-    background-color: darkgreen !important; /* Darker shade on hover */
+  background-color: darkgreen !important; /* Darker shade on hover */
 }
 
 /* Apply the secondary color */
 .mat-accent {
-    color: var(--mat-accent) !important;
+  color: var(--mat-accent) !important;
 }
 
 .mat-raised-button.mat-accent,
 .mat-flat-button.mat-accent,
 .mat-stroked-button.mat-accent {
-    background-color: var(--mat-accent) !important;
-    color: white; /* Adjust text color for contrast */
+  background-color: var(--mat-accent) !important;
+  color: white; /* Adjust text color for contrast */
 }
 
 /* Apply the error color */
 .mat-warn {
-    color: var(--mat-warn) !important;
+  color: var(--mat-warn) !important;
 }
 
 .mat-form-field.mat-error .mat-form-field-label,
 .mat-error {
-    color: var(--mat-warn) !important;
+  color: var(--mat-warn) !important;
 }
 
 /* Customize background and text colors */
 .mat-app-background {
-    background-color: var(--mat-background);
+  background-color: var(--mat-background);
 }
 
 .mat-form-field .mat-form-field-label,
@@ -62,22 +70,22 @@
 .mat-menu-item,
 .mat-tab-label,
 .mat-expansion-panel-header {
-    color: var(--mat-text) !important; /* Text color for components */
+  color: var(--mat-text) !important; /* Text color for components */
 }
 
 .mat-toolbar {
-    background-color: var(--mat-primary) !important;
+  background-color: var(--mat-primary) !important;
 }
 
 /* Ensure consistent styling for form fields and other components */
 .mat-form-field .mat-form-field-label,
 .mat-form-field-underline,
 .mat-form-field-ripple {
-    color: var(--mat-primary) !important;
+  color: var(--mat-primary) !important;
 }
 
 .mat-form-field.mat-error .mat-form-field-label,
 .mat-form-field.mat-error .mat-form-field-underline,
 .mat-form-field.mat-error .mat-form-field-ripple {
-    color: var(--mat-warn) !important;
+  color: var(--mat-warn) !important;
 }
