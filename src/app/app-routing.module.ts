@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { LogsComponent } from './logs/logs.component';
 import { AuthGuardService } from './auth/auth-guard.service';
 import { LogoutComponent } from './logout/logout.component';
+import { CredentialsComponent } from './credentials/credentials.component';
 export const routes: Routes = [
   {
     path: '',
@@ -31,7 +32,8 @@ export const routes: Routes = [
       { path: 'institutions', component: InstitutionComponent, canActivate: [AuthGuardService] },
       { path: 'recipients', component: RecipientsComponent, canActivate: [AuthGuardService] },
       { path: 'new-document', component: NewDocumentComponent, canActivate: [AuthGuardService] },
-      { path: 'logs', component: LogsComponent, canActivate: [AuthGuardService] }
+      { path: 'logs', component: LogsComponent, canActivate: [AuthGuardService] },
+      { path: 'creds',component: CredentialsComponent,canActivate:[AuthGuardService]}
     ]
   },
   { path: 'logout', component: LogoutComponent },

@@ -73,6 +73,8 @@ import { LogoutComponent } from './logout/logout.component';
 import { AlertComponent } from './alert/alert.component';
 import { LogsDocumentComponent } from './logs-document/logs-document.component';
 import { UserMaintenanceLogsComponent } from './user-maintenance-logs/user-maintenance-logs.component';
+import { CredentialsComponent } from './credentials/credentials.component';
+import { CredentialsLogsComponent } from './credentials-logs/credentials-logs.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +95,9 @@ import { UserMaintenanceLogsComponent } from './user-maintenance-logs/user-maint
     LogoutComponent,
     AlertComponent,
     LogsDocumentComponent,
-    UserMaintenanceLogsComponent
+    UserMaintenanceLogsComponent,
+    CredentialsComponent,
+    CredentialsLogsComponent
  
   ],
   imports: [
