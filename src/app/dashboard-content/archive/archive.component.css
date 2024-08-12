@@ -33,15 +33,21 @@ button.mat-raised-button {
 }
 
 ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
-  border-radius: var(--rounded-corners) !important;
-  border: 1px solid var(--mdc-outlined-text-field-outline-color) !important;
+  border-radius: 5px !important;
+  border: 1px solid var(--bg-color) !important;
   background-color: white !important;
 }
+
 ::ng-deep
   .mdc-text-field--filled:not(.mdc-text-field--disabled)
   .mdc-line-ripple::before {
   border-bottom-color: var(--mdc-filled-text-field-active-indicator-color);
   border: none;
+}
+
+::ng-deep.search-field[_ngcontent-ng-c793618033] {
+  width: 100%;
+  margin-bottom: 30px;
 }
 
 ::ng-deep .mat-mdc-form-field-subscript-wrapper {
@@ -62,14 +68,10 @@ button.mat-raised-button {
   color: #08783f !important;
 }
 
-::ng-deep .mdc-text-field--outlined {
-  --mdc-outlined-text-field-container-shape: var(--rounded-corners) !important;
-}
-
 #monthlyReportsTable {
   background-color: var(--bg-color);
   padding: 10px;
-  border-radius: var(--rounded-corners);
+  border-radius: 5px;
   & table {
     background: none;
 
@@ -124,18 +126,18 @@ button.mat-raised-button {
     & tr {
       &:first-child {
         & td:first-child {
-          border-radius: var(--topleft-rounded-corner);
+          border-radius: 5px 0 0 0;
         }
         & td:last-child {
-          border-radius: var(--topright-rounded-corner);
+          border-radius: 0 5px 0 0;
         }
       }
       &:last-child {
         & td:first-child {
-          border-radius: var(--bottomleft-rounded-corner);
+          border-radius: 0 0 0 5px;
         }
         & td:last-child {
-          border-radius: var(--bottomright-rounded-corner);
+          border-radius: 0 0 5px 0;
         }
       }
       & td {
@@ -194,8 +196,8 @@ mat-paginator {
 .month-year-controls {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 10px;
+  gap: 16px;
+  margin-bottom: 24px;
 }
 
 .mat-form-field {
@@ -308,17 +310,10 @@ mat-paginator {
   }
 }
 
-@media screen and (max-width: 768px) {
-  .wrapper {
-    margin-left: 64px;
-  }
-}
-
 .print-button {
-  border-radius: var(--rounded-corners);
-  padding: 20px;
+  margin-top: 20px;
 }
 
-::ng-deep .mat-mdc-paginator-container {
-  padding: 0 !important;
+.paginator {
+  margin-top: 20px;
 }
