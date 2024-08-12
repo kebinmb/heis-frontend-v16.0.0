@@ -8,8 +8,8 @@
 .container {
   background: #fff;
   border-radius: 8px;
-  padding: 16px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  background-color: var(--bg-color);
 }
 
 /* Search field styling */
@@ -62,6 +62,11 @@ tr.mat-row:nth-child(odd) {
 
 tr.mat-row:nth-child(even) {
   background-color: #fff;
+}
+
+::ng-deep .mat-mdc-tab-body-content {
+  background-color: var(--fg-color);
+  padding: 20px 10px;
 }
 
 /* Pagination styling */
@@ -170,4 +175,48 @@ mat-paginator {
   button {
     display: none; /* Hide the print button in print view */
   }
+}
+
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  border-radius: var(--rounded-corners) !important;
+  border: 1px solid var(--mdc-outlined-text-field-outline-color) !important;
+  background-color: white !important;
+}
+
+::ng-deep .mdc-text-field--disabled {
+  border-radius: var(--rounded-corners) !important;
+  border: 1px solid var(--mdc-outlined-text-field-outline-color) !important;
+}
+
+::ng-deep .mdc-text-field--filled {
+  --mdc-filled-text-field-active-indicator-height: 0px;
+  --mdc-filled-text-field-focus-active-indicator-height: 2px;
+}
+
+::ng-deep
+  .mdc-text-field--filled:not(.mdc-text-field--disabled)
+  .mdc-line-ripple::before {
+  border-bottom-color: var(--mdc-filled-text-field-active-indicator-color);
+  border: none;
+}
+
+::ng-deep .add-cc-button {
+  padding: 20px !important;
+  border-radius: var(--rounded-corners) !important;
+  background-color: color-mix(
+    in srgb,
+    var(--mat-primary),
+    white 90%
+  ) !important;
+  color: var(--mat-primary) !important;
+  border: 1px solid var(--mat-primary) !important;
+}
+
+::ng-deep .remove-cc-button {
+  border: 1px solid var(--mat-primary) !important;
+}
+
+::ng-deep .bg-primary {
+  --bs-bg-opacity: 1;
+  background-color: var(--mat-primary) !important;
 }

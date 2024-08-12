@@ -57,7 +57,6 @@ body {
 .row {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
   margin-bottom: 1rem;
 }
 
@@ -81,16 +80,16 @@ button[type="submit"] {
   width: 100%;
   padding: 0.75rem;
   font-size: 1rem;
-  background-color: #1976d2;
+  /* background-color: #1976d2; */
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: var(--rounded-corners);
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 button[type="submit"]:hover {
-  background-color: #1565c0;
+  /* background-color: #1565c0; */
 }
 
 /* Progress bar styles */
