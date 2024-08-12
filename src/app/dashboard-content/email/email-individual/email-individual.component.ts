@@ -26,7 +26,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Router } from '@angular/router';
 import { FormArrayException } from '../../exceptions/formArrayException';
 
-
 @Component({
   selector: 'app-email-individual',
   templateUrl: './email-individual.component.html',
@@ -183,7 +182,7 @@ export class EmailIndividualComponent implements OnInit {
       return;
     }
 
-    Array.from(files).forEach(file => {
+    Array.from(files).forEach((file) => {
       formData.append('attachment', file);
     });
 
@@ -196,7 +195,6 @@ export class EmailIndividualComponent implements OnInit {
     formData.append('cc', cc);
     formData.append('encoder', encoder.toString());
     formData.append('message', message);
-    
 
     try {
       await this.appendEmailFields(formData);
@@ -207,10 +205,12 @@ export class EmailIndividualComponent implements OnInit {
           this.loading = false;
           alert('Document was sent successfully');
           this.emailForm.reset();
-          this.router.navigateByUrl('/archives', { skipLocationChange: true }).then(() => {
-            this.router.navigate([this.router.url]);
-            window.location.reload();
-          });
+          this.router
+            .navigateByUrl('/archives', { skipLocationChange: true })
+            .then(() => {
+              this.router.navigate([this.router.url]);
+              window.location.reload();
+            });
         },
         error: (error) => {
           console.error('Error sending email:', error);
