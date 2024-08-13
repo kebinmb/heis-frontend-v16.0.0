@@ -6,10 +6,7 @@
 }
 
 .container {
-  background: #fff;
-  border-radius: 8px;
-  padding: 10px;
-  background-color: var(--bg-color);
+  padding: 0;
 }
 
 /* Search field styling */
@@ -66,7 +63,7 @@ tr.mat-row:nth-child(even) {
 
 ::ng-deep .mat-mdc-tab-body-content {
   background-color: var(--fg-color);
-  padding: 20px 10px;
+  padding: 20px 20px;
 }
 
 /* Pagination styling */

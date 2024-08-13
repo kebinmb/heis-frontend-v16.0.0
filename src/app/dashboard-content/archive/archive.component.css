@@ -308,12 +308,6 @@ mat-paginator {
   }
 }
 
-@media screen and (max-width: 768px) {
-  .wrapper {
-    margin-left: 64px;
-  }
-}
-
 .print-button {
   border-radius: var(--rounded-corners);
   padding: 20px;
