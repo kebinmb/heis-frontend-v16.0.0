@@ -1,13 +1,13 @@
-<div class="table-container">
-  <h2 class="header-title">List of Users</h2>
 
-  <div class="the-table-container">
+    <h2 class="header-title">List of Users</h2>
+
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <!-- Name Column -->
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>Name</th>
         <td mat-cell *matCellDef="let user">{{ user.name }}</td>
       </ng-container>
+
       <!-- Designation Column -->
       <ng-container matColumnDef="designation">
         <th mat-header-cell *matHeaderCellDef>Designation</th>
@@ -15,6 +15,7 @@
           {{ user.designation || "No Designation" }}
         </td>
       </ng-container>
+
       <!-- Department Column -->
       <ng-container matColumnDef="department">
         <th mat-header-cell *matHeaderCellDef>Department</th>
@@ -22,11 +23,13 @@
           {{ user.departmentName || "No Department" }}
         </td>
       </ng-container>
+
       <!-- Email Column -->
       <ng-container matColumnDef="email">
         <th mat-header-cell *matHeaderCellDef>Email</th>
         <td mat-cell *matCellDef="let user">{{ user.email || "No Email" }}</td>
       </ng-container>
+
       <ng-container matColumnDef="campus">
         <th mat-header-cell *matHeaderCellDef>Campus</th>
         <td mat-cell *matCellDef="let user">
@@ -40,33 +43,33 @@
           </ng-container>
         </td>
       </ng-container>
+
       <!-- Actions Column -->
       <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let user">
           <a (click)="openDialogEdit(user)" class="action-link">Edit</a>
-          <a (click)="deleteUser(user.userId)" class="action-link">Delete</a>
+          <a (click) = "deleteUser(user.userId)" class="action-link">Delete</a>
         </td>
       </ng-container>
+      
+
       <!-- Table Header and Rows -->
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
-  </div>
 
-  <div class="controls">
-    <button
-      mat-raised-button
-      (click)="openDialog()"
-      color="primary"
-      class="add-button"
-    >
-      Add new recipient
-    </button>
+    <div class="controls">
+      <button mat-raised-button (click)="openDialog()" color="primary" class="add-button">
+        Add new recipient
+      </button>
 
-    <mat-paginator
-      [pageSizeOptions]="[5, 10, 20]"
-      showFirstLastButtons
-    ></mat-paginator>
-  </div>
-</div>
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons
+      ></mat-paginator>
+    </div>
+
+
+ 
+
