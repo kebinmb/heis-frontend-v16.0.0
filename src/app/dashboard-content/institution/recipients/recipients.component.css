@@ -4,17 +4,6 @@
   font-weight: bold;
   color: #333;
 }
-
-.add-button {
-  margin-right: 16px;
-}
-.controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 16px;
-}
-
 /* Style for the wrapper to add margin and padding */
 .wrapper {
   padding: 0px 40px 40px 40px;
@@ -29,6 +18,12 @@
   gap: 16px; /* Space between elements */
 }
 
+.the-table-container {
+  border: 1px solid var(--mat-table-row-item-outline-color);
+  overflow: hidden;
+  border-radius: var(--rounded-corners);
+}
+
 /* Style the header title */
 .header-title {
   margin: 0;
@@ -39,8 +34,13 @@
 
 /* Style the table to ensure readability */
 table {
-  width: 100%;
+  border-radius: var(--rounded-corners);
   border-collapse: collapse;
+  width: 100%;
+  box-shadow: none;
+  & thead tr th {
+    background-color: var(--bg-color) !important;
+  }
 }
 
 /* Style the table header cells */
@@ -67,19 +67,9 @@ td.mat-cell {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 16px;
-}
-
-/* Style the add button */
-.add-button {
-  margin-right: 16px;
-}
-
-/* Ensure paginator is styled consistently */
-mat-paginator {
-  margin-top: 16px;
 }
 
 .add-button {
-  margin-right: 16px;
+  border-radius: var(--rounded-corners);
+  padding: 1.5rem !important;
 }
