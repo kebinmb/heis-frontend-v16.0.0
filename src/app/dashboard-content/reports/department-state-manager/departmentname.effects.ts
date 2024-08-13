@@ -50,13 +50,18 @@ export class DepartmentNamesEffect {
                   (department) =>
                     monthlyReport.departmentId === department.departmentId
                 );
-                const receiverName = userMap.get(monthlyReport.attention) || '';
+                 // Handle comma-separated user IDs in the attention field
+                 const receiverNames = monthlyReport.attention
+                 .split(',')
+                 .map((userId: string) => userMap.get(userId.trim()) || '')
+                 .filter((name:any) => name !== '')  // Filter out any empty names
+                 .join(', ');
 
-                return {
-                  ...monthlyReport,
-                  departmentName: matchedDepartment ? matchedDepartment.departmentName : '',
-                  receiverName
-                };
+               return {
+                 ...monthlyReport,
+                 departmentName: matchedDepartment ? matchedDepartment.departmentName : '',
+                 receiverName: receiverNames
+               };
               }
             );
 
