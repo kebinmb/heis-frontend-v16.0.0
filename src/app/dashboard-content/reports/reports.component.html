@@ -56,7 +56,7 @@
           >
             Print Table
           </button>
-          <div id="dailyReportsTable">
+          <div class="the-table-container" id="dailyReportsTable">
             <!-- Hidden header for print view -->
             <div id="printHeader" class="print-header">
               <h1>Report Header</h1>
@@ -76,7 +76,6 @@
                   {{ element.documentNumber }}
                 </td>
               </ng-container>
-
               <!-- Letter Type Column -->
               <ng-container matColumnDef="letterType">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -96,13 +95,11 @@
                   </ng-container>
                 </td>
               </ng-container>
-
               <!-- From Column -->
               <ng-container matColumnDef="from">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>From</th>
                 <td mat-cell *matCellDef="let element">{{ element.name }}</td>
               </ng-container>
-
               <!-- Subject Column -->
               <ng-container matColumnDef="subject">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -112,7 +109,6 @@
                   {{ element.subject }}
                 </td>
               </ng-container>
-
               <!-- Time Stamp Column -->
               <ng-container matColumnDef="timeStamp">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -122,7 +118,6 @@
                   {{ element.timestamp | date : "MMMM dd, yyyy" }}
                 </td>
               </ng-container>
-
               <!-- Header and Row Definitions -->
               <tr mat-header-row *matHeaderRowDef="displayedColumnsDaily"></tr>
               <tr
@@ -166,7 +161,7 @@
             Print Table
           </button>
           <!-- Table for Monthly Reports -->
-          <div id="monthlyReportsTable">
+          <div class="the-table-container" id="monthlyReportsTable">
             <!--Hidden Header-->
             <div id="printHeader" class="print-header">
               <h1>Report Header</h1>
@@ -256,7 +251,7 @@
           <!-- Paginator -->
           <mat-paginator
             #paginatorMonthly
-            [pageSizeOptions]="[10, 15, 20,finalMonthlyReportsArray.length]"
+            [pageSizeOptions]="[10, 15, 20, finalMonthlyReportsArray.length]"
             showFirstLastButtons
           ></mat-paginator>
         </div>
@@ -288,7 +283,7 @@
 
           <!--Hidden Header-->
 
-          <div id="externalMonthlyReports">
+          <div class="the-table-container" id="externalMonthlyReports">
             <div id="printHeader" class="print-header">
               <h1>Report Header</h1>
             </div>
@@ -297,7 +292,6 @@
               [dataSource]="dataSourceExternalMonthlyReports"
               matSort
             >
-             
               <!-- Document Number Column -->
               <ng-container matColumnDef="documentNumber">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -383,7 +377,12 @@
           <!-- Paginator -->
           <mat-paginator
             #paginatorExternal
-            [pageSizeOptions]="[10, 15, 20,finalExternalMonthlyReportsArray.length]"
+            [pageSizeOptions]="[
+              10,
+              15,
+              20,
+              finalExternalMonthlyReportsArray.length
+            ]"
             showFirstLastButtons
           ></mat-paginator>
         </div>

@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <div class="container mt-4">
+  <div class="container">
     <form
       [formGroup]="emailForm"
       (ngSubmit)="sendEmail()"
@@ -7,7 +7,7 @@
     >
       <div class="row">
         <div class="col">
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="fill">
             <mat-label>Document Number</mat-label>
             <input
               matInput
@@ -101,32 +101,57 @@
           </mat-form-field>
         </div>
       </div>
+
       <div class="row">
         <div class="col">
-          <div formArrayName="attention" class="mb-3">
-            <div *ngFor="let control of attentionArray.controls; let i = index">
-              <div class="row">
-                <div class="col">
+          <div formArrayName="attention" class="row mb-0">
+            <div
+              *ngFor="let control of attentionArray.controls; let i = index"
+              class="col-6"
+            >
+              <div class="d-flex align-items-center mb-3 gap-2">
+                <div class="w-100">
                   <mat-form-field>
-                    <input matInput [formControlName]="i" [matAutocomplete]="auto" placeholder="Enter email" />
+                    <input
+                      matInput
+                      [formControlName]="i"
+                      [matAutocomplete]="auto"
+                      placeholder="Enter email"
+                    />
                     <mat-autocomplete #auto="matAutocomplete">
-                      <mat-option *ngFor="let email of filteredEmails[i] | async" [value]="email">
+                      <mat-option
+                        *ngFor="let email of filteredEmails[i] | async"
+                        [value]="email"
+                      >
                         {{ email }}
                       </mat-option>
                     </mat-autocomplete>
                   </mat-form-field>
                 </div>
-                <div class="col">
-                  <button mat-icon-button type="button" (click)="removeAttention(i)">
+                <div class="">
+                  <button
+                    class="btn btn-danger rounded-3 bg-danger text-white"
+                    mat-icon-button
+                    type="button"
+                    (click)="removeAttention(i)"
+                  >
                     <mat-icon>remove</mat-icon>
                   </button>
                 </div>
               </div>
             </div>
-            <button mat-button type="button" (click)="addAttention()">Add Receiver</button>
-          </div>          
+          </div>
+          <button
+            class="btn-primary rounded-3 bg-primary text-white p-4 w-25"
+            mat-button
+            type="button"
+            (click)="addAttention()"
+          >
+            Add Receiver
+          </button>
         </div>
       </div>
+
       <div class="row">
         <div class="col">
           <mat-form-field>
@@ -160,36 +185,55 @@
           </mat-form-field>
         </div>
         <div class="col">
-          <input type="file" multiple="true" (change)="onFileChange($event)" />
+          <input
+            class="inputTypeFile2"
+            type="file"
+            multiple="true"
+            (change)="onFileChange($event)"
+          />
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <div class="col">
-            <div formArrayName="cc" class="mb-3">
-              <div *ngFor="let control of ccArray.controls; let i = index">
-                <div class="row">
-                  <div class="col">
-                    <mat-form-field>
-                      <input
-                        matInput
-                        [formControlName]="i"
-                        placeholder="Enter email"
-                      />
-                    </mat-form-field>
-                  </div>
-                  <div class="col">
-                    <button mat-icon-button type="button" (click)="removeCc(i)">
-                      <mat-icon>remove</mat-icon>
-                    </button>
-                  </div>
+          <div formArrayName="cc" class="row mb-0">
+            <div
+              *ngFor="let control of ccArray.controls; let i = index"
+              class="col-6"
+            >
+              <div class="d-flex align-items-center mb-3 gap-3">
+                <div class="w-100">
+                  <mat-form-field>
+                    <input
+                      matInput
+                      [formControlName]="i"
+                      placeholder="Enter email"
+                    />
+                  </mat-form-field>
+                </div>
+                <div class="">
+                  <button
+                    class="btn btn-danger rounded-3 bg-danger text-white"
+                    mat-icon-button
+                    type="button"
+                    (click)="removeCc(i)"
+                  >
+                    <mat-icon>remove</mat-icon>
+                  </button>
                 </div>
               </div>
-              <button mat-button type="button" (click)="addCc()">Add CC</button>
             </div>
           </div>
+          <button
+            class="btn-primary rounded-3 bg-primary text-white p-4 w-25"
+            mat-button
+            type="button"
+            (click)="addCc()"
+          >
+            Add CC
+          </button>
         </div>
       </div>
+
       <div class="row">
         <mat-form-field>
           <mat-label for="message">Message</mat-label>

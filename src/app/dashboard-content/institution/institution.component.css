@@ -9,7 +9,7 @@
 .table-container {
   display: flex;
   flex-direction: column;
-  gap: 16px; /* Space between elements */
+  gap: 1rem;
 }
 
 /* Style the header title */
@@ -20,10 +20,21 @@
   color: #333;
 }
 
+.the-table-container {
+  border: 1px solid var(--mat-table-row-item-outline-color);
+  overflow: hidden;
+  border-radius: var(--rounded-corners);
+}
+
 /* Style the table to ensure readability */
 table {
-  width: 100%;
+  border-radius: var(--rounded-corners);
   border-collapse: collapse;
+  width: 100%;
+  box-shadow: none;
+  & thead tr th {
+    background-color: var(--bg-color) !important;
+  }
 }
 
 /* Style the table header cells */
@@ -50,19 +61,25 @@ td.mat-cell {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 16px;
 }
 
 /* Style the add button */
 .add-button {
-  margin-right: 16px;
+  border-radius: var(--rounded-corners);
+  padding: 1.5rem !important;
 }
 
-/* Ensure paginator is styled consistently */
-mat-paginator {
-  margin-top: 16px;
+.mat-mdc-tab-body-content {
+  background-color: var(--fg-color);
+  padding: 20px;
 }
 
-.add-button {
-  margin-right: 16px;
+.mat-mdc-tab-body-wrapper {
+  padding: 20px;
+  background-color: var(--fg-color);
+}
+
+::ng-deep .mat-mdc-tab-body-content {
+  background-color: var(--fg-color) !important;
+  padding: 20px 20px !important;
 }
