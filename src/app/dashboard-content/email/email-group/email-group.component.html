@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <div class="container">
+  <div class="container mt-4">
     <form
       [formGroup]="emailForm"
       (ngSubmit)="sendEmail()"
@@ -7,7 +7,7 @@
     >
       <div class="row">
         <div class="col">
-          <mat-form-field appearance="fill">
+          <mat-form-field appearance="outline">
             <mat-label>Document Number</mat-label>
             <input
               matInput
@@ -113,10 +113,7 @@
         <div class="col">
           <mat-form-field>
             <mat-label>Campus</mat-label>
-            <mat-select
-              formControlName="campus"
-              (selectionChange)="getUserFromCampusAndDepartment($event)"
-            >
+            <mat-select formControlName="campus" (selectionChange)="getUserFromCampusAndDepartment($event)">
               <mat-option [value]="1">Alijis</mat-option>
               <mat-option [value]="2">Binalbagan</mat-option>
               <mat-option [value]="3">Fortune Towne</mat-option>
@@ -140,145 +137,72 @@
           </mat-form-field>
         </div>
       </div>
-
       <div class="row">
         <mat-form-field *ngIf="showDepartmentStaff">
           <mat-label>To</mat-label>
           <mat-select formControlName="attention">
-            <mat-option [value]="allStaffFromDepartmentEmail"
-              >All Staff</mat-option
-            >
-            <mat-option [value]="regularDepartmentStaffEmail"
-              >All Regular Staff</mat-option
-            >
-            <mat-option [value]="jobOrderDepartmentStaffEmail"
-              >All Job Order Staff</mat-option
-            >
+            <mat-option [value]="allStaffFromDepartmentEmail">All Staff</mat-option>
+            <mat-option [value]="regularDepartmentStaffEmail">All Regular Staff</mat-option>
+            <mat-option [value]="jobOrderDepartmentStaffEmail">All Job Order Staff</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field *ngIf="showDepartmentFieldFaculty">
           <mat-label>To</mat-label>
           <mat-select formControlName="attention">
-            <mat-option [value]="allFacultyFromDepartmentEmail"
-              >All Faculty</mat-option
-            >
-            <mat-option [value]="regularDepartmentFacultyEmail"
-              >All Regular Faculty</mat-option
-            >
-            <mat-option [value]="partTimeDepartmentFacultyEmail"
-              >All Part Time Faculty</mat-option
-            >
+            <mat-option [value]="allFacultyFromDepartmentEmail">All Faculty</mat-option>
+            <mat-option [value]="regularDepartmentFacultyEmail">All Regular Faculty</mat-option>
+            <mat-option [value]="partTimeDepartmentFacultyEmail">All Part Time Faculty</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
-
+      
       <div class="row">
         <div class="col">
-          <mat-form-field>
-            <mat-label for="from">From</mat-label>
-            <input
-              matInput
-              id="from"
-              formControlName="from"
-              [matAutocomplete]="fromAuto"
-              required
-            />
-            <mat-error
-              *ngIf="
-                getControl('from')?.invalid &&
-                (getControl('from')?.dirty || getControl('from')?.touched)
-              "
-            >
-              <small
-                class="text-danger"
-                *ngIf="getControl('from')?.errors?.['required']"
-                >From is required.</small
-              >
-            </mat-error>
-            <mat-autocomplete #fromAuto="matAutocomplete">
-              <mat-option
-                *ngFor="let option of filteredFromUsers | async"
-                [value]="option"
-                >{{ option }}</mat-option
-              >
-            </mat-autocomplete>
-          </mat-form-field>
+           <mat-form-field>
+              <mat-label for="from">From</mat-label>
+              <input matInput id="from" formControlName="from" [matAutocomplete]="fromAuto" required />
+              <mat-error *ngIf="getControl('from')?.invalid && (getControl('from')?.dirty || getControl('from')?.touched)">
+                <small class="text-danger" *ngIf="getControl('from')?.errors?.['required']">From is required.</small>
+              </mat-error>
+              <mat-autocomplete #fromAuto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredFromUsers | async" [value]="option">{{ option }}</mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
         </div>
         <div class="col">
-          <input
-            class="inputTypeFile2"
-            type="file"
-            multiple="true"
-            (change)="onFileChange($event)"
-          />
+          <input type="file" multiple="true" (change)="onFileChange($event)" />
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <div formArrayName="cc" class="row mb-0">
-            <div
-              *ngFor="let control of ccArray.controls; let i = index"
-              class="col-12"
-            >
-              <div class="d-flex align-items-center mb-3 gap-4">
-                <div class="w-100">
-                  <mat-form-field>
-                    <input
-                      matInput
-                      [formControlName]="i"
-                      placeholder="Enter email"
-                    />
-                  </mat-form-field>
-                </div>
-                <div class="">
-                  <button
-                    class="btn btn-danger rounded-3 bg-danger text-white"
-                    mat-icon-button
-                    type="button"
-                    (click)="removeCc(i)"
-                  >
-                    <mat-icon>remove</mat-icon>
-                  </button>
+          <div class="col">
+            <div formArrayName="cc" class="mb-3">
+              <div *ngFor="let control of ccArray.controls; let i = index">
+                <div class="row">
+                  <div class="col">
+                    <mat-form-field>
+                      <input matInput [formControlName]="i" placeholder="Enter email" />
+                    </mat-form-field>
+                  </div>
+                  <div class="col">
+                    <button mat-icon-button type="button" (click)="removeCc(i)">
+                      <mat-icon>remove</mat-icon>
+                    </button>
+                  </div>
                 </div>
               </div>
+              <button mat-button type="button" (click)="addCc()">Add CC</button>
             </div>
           </div>
-
-          <button
-            class="btn-primary rounded-3 bg-primary text-white p-4 w-25"
-            mat-button
-            type="button"
-            (click)="addCc()"
-          >
-            Add CC
-          </button>
         </div>
       </div>
       <div class="row">
         <mat-form-field>
           <mat-label for="message">Message</mat-label>
-          <textarea
-            matInput
-            id="message"
-            formControlName="message"
-            rows="5"
-          ></textarea>
-          <mat-error
-            *ngIf="
-              getControl('message')?.invalid &&
-              (getControl('message')?.dirty || getControl('message')?.touched)
-            "
-          >
-            <span
-              *ngIf="getControl('message')?.errors?.['required']"
-              class="text-danger"
-              >Message is required.</span
-            >
-            <span
-              *ngIf="getControl('message')?.errors?.['minlength']"
-              class="text-danger"
-              >Message must be at least 10 characters long.</span
-            >
+          <textarea matInput id="message" formControlName="message" rows="5"></textarea>
+          <mat-error *ngIf="getControl('message')?.invalid && (getControl('message')?.dirty || getControl('message')?.touched)">
+            <span *ngIf="getControl('message')?.errors?.['required']" class="text-danger">Message is required.</span>
+            <span *ngIf="getControl('message')?.errors?.['minlength']" class="text-danger">Message must be at least 10 characters long.</span>
           </mat-error>
         </mat-form-field>
       </div>
