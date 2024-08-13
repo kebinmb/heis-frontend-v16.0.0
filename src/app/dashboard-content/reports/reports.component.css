@@ -1,16 +1,13 @@
 /* General styles */
 .wrapper {
   padding: 0px 40px 40px 40px;
-  background-color: #f5f5f5;
   margin-top: 88px;
   margin-left: 220px;
 }
 
 .container {
   background: #fff;
-  border-radius: 8px;
-  padding: 16px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: var(--roumded-corners);
 }
 
 /* Search field styling */
@@ -63,11 +60,6 @@ tr.mat-row:nth-child(odd) {
 
 tr.mat-row:nth-child(even) {
   background-color: #fff;
-}
-
-/* Pagination styling */
-mat-paginator {
-  margin: 16px 0;
 }
 
 /* Month and Year controls styling */
@@ -171,4 +163,34 @@ mat-paginator {
   button {
     display: none; /* Hide the print button in print view */
   }
+}
+
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  border-radius: var(--rounded-corners) !important;
+  border: 1px solid var(--mdc-outlined-text-field-outline-color) !important;
+  background-color: white !important;
+}
+
+.the-table-container {
+  border: 1px solid var(--mat-table-row-item-outline-color);
+  border-radius: var(--rounded-corners);
+  overflow: hidden;
+  margin: 1rem 0;
+
+  & table {
+    & thead th {
+      background-color: var(--bg-color);
+      text-align: start;
+    }
+  }
+}
+
+button {
+  padding: 1.75rem;
+  border-radius: var(--rounded-corners);
+}
+
+::ng-deep .mat-mdc-tab-body-content {
+  background-color: var(--fg-color) !important;
+  padding: 20px 20px !important;
 }
