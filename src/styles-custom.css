@@ -126,6 +126,13 @@
   }
 }
 
+@media (min-width: 576px) {
+  .container-sm,
+  .container {
+    max-width: 100%;
+  }
+}
+
 .mat-mdc-tab-group,
 .mat-mdc-tab-nav-bar {
   --mdc-tab-indicator-active-indicator-color: #08783f;
@@ -368,4 +375,15 @@ html {
 
 .mdc-text-field--outlined {
   --mdc-outlined-text-field-container-shape: var(--rounded-corners) !important;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled)
+  .mdc-line-ripple::before {
+  border: none;
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    margin-left: 32px !important;
+  }
 }
