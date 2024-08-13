@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <div class="container">
+  <div class="container mt-4">
     <form
       [formGroup]="emailForm"
       (ngSubmit)="sendEmail()"
@@ -179,50 +179,52 @@
         </div>
       </div>
 
-      <div formArrayName="cc" class="mb-3">
-        <div *ngFor="let control of ccArray.controls; let i = index">
-          <div class="align-items-center mb-3 row">
-            <div class="col-11">
-              <mat-form-field>
-                <input
-                  matInput
-                  [formControlName]="i"
-                  placeholder="Enter email"
-                />
-              </mat-form-field>
+      <div class="row">
+        <div class="col">
+          <div formArrayName="cc" class="mb-3">
+            <div *ngFor="let control of ccArray.controls; let i = index">
+              <div class="d-flex gap-4 align-items-center mb-3">
+                <div class="w-100">
+                  <mat-form-field>
+                    <input
+                      matInput
+                      [formControlName]="i"
+                      placeholder="Enter email"
+                    />
+                  </mat-form-field>
+                </div>
+                <div class="">
+                  <button
+                    class="btn btn-danger rounded-3 bg-danger text-white"
+                    mat-icon-button
+                    type="button"
+                    (click)="removeCc(i)"
+                  >
+                    <mat-icon>remove</mat-icon>
+                  </button>
+                </div>
+              </div>
             </div>
-            <div class="col-1">
-              <button
-                class="btn btn-danger rounded-3 bg-danger text-white"
-                mat-icon-button
-                type="button"
-                (click)="removeCc(i)"
-              >
-                <mat-icon>remove</mat-icon>
-              </button>
+            <div class="row">
+              <div class="col">
+                <button
+                  class="btn-primary rounded-3 bg-primary text-white p-4"
+                  mat-button
+                  type="button"
+                  (click)="addCc()"
+                >
+                  Add CC
+                </button>
+              </div>
+              <div class="col">
+                <input
+                  type="file"
+                  multiple="true"
+                  (change)="onFileChange($event)"
+                />
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-3">
-          <button
-            class="btn-primary rounded-3 bg-primary text-white p-4 w-100"
-            mat-button
-            type="button"
-            (click)="addCc()"
-          >
-            Add CC
-          </button>
-        </div>
-        <div class="col-9">
-          <input
-            class="inputTypeFile"
-            type="file"
-            multiple="true"
-            (change)="onFileChange($event)"
-          />
         </div>
       </div>
 
