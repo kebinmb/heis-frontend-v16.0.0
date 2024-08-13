@@ -69,6 +69,12 @@ import { LoginComponent } from './login/login.component';
 import { LogsComponent } from './logs/logs.component';
 import { userLogsReducer } from './logs/logs-user-state-manager/logs-user.reducer';
 import { UserLogsEffects } from './logs/logs-user-state-manager/logs-user.effects';
+import { LogoutComponent } from './logout/logout.component';
+import { AlertComponent } from './alert/alert.component';
+import { LogsDocumentComponent } from './logs-document/logs-document.component';
+import { UserMaintenanceLogsComponent } from './user-maintenance-logs/user-maintenance-logs.component';
+import { CredentialsComponent } from './credentials/credentials.component';
+import { CredentialsLogsComponent } from './credentials-logs/credentials-logs.component';
 
 @NgModule({
   declarations: [
@@ -85,7 +91,13 @@ import { UserLogsEffects } from './logs/logs-user-state-manager/logs-user.effect
     EmailMultipleComponent,
     EditRecipientsModalComponent,
     LoginComponent,
-    LogsComponent
+    LogsComponent,
+    LogoutComponent,
+    AlertComponent,
+    LogsDocumentComponent,
+    UserMaintenanceLogsComponent,
+    CredentialsComponent,
+    CredentialsLogsComponent
  
   ],
   imports: [

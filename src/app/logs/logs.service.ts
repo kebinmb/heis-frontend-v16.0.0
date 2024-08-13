@@ -40,4 +40,37 @@ export class LogsService {
       })
     );
   }
+
+  getDocumentLogs(date:string,campus:number):Observable<any[]>{
+    const params = new HttpParams()
+    .set('date',date)
+    .set('campus',campus.toString())
+    return (this.http.get(`${this.apiServerUrl}/logs/documentLogs`,{params,responseType:'text'}).pipe(
+      map((response:any)=>{
+        try{
+          console.log("Document Logs From Service:",response)
+          return JSON.parse(response);
+        }catch(e){
+          console.error('Failed to parse response',e);
+          return [];
+        }
+      })
+    ))
+  }
+
+  getUserMaintenanceLogs(date:string,campus:number):Observable<any[]>{
+    const params = new HttpParams()
+    .set('date',date)
+    .set('campus',campus.toString())
+    return (this.http.get(`${this.apiServerUrl}/logs/usermainteLogs`,{params,responseType:'text'}).pipe(
+      map((response:any)=>{
+        try{
+          return JSON.parse(response);
+        }catch(e){
+          console.error('Failed to parse response',e);
+          return [];
+        }
+      })
+    ))
+  }
 }

@@ -25,6 +25,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Router } from '@angular/router';
 import { FormArrayException } from '../../exceptions/formArrayException';
+import { EmailConfigService } from 'src/app/new-document/email-config.service';
+
 
 @Component({
   selector: 'app-email-individual',
@@ -49,6 +51,7 @@ export class EmailIndividualComponent implements OnInit {
 
   constructor(
     private emailService: EmailService,
+    private emailConfigService:EmailConfigService,
     private formBuilder: FormBuilder,
     private router: Router
   ) {
@@ -67,6 +70,8 @@ export class EmailIndividualComponent implements OnInit {
       encoder: [4, Validators.required],
       message: ['', Validators.required],
       departmentId: [''],
+      username:[''],
+      password:['']
     });
   }
 
@@ -182,7 +187,7 @@ export class EmailIndividualComponent implements OnInit {
       return;
     }
 
-    Array.from(files).forEach((file) => {
+    Array.from(files).forEach(file => {
       formData.append('attachment', file);
     });
 
@@ -195,6 +200,9 @@ export class EmailIndividualComponent implements OnInit {
     formData.append('cc', cc);
     formData.append('encoder', encoder.toString());
     formData.append('message', message);
+    formData.append('username', this.emailConfigService.getCredentials().username);
+    formData.append('password', this.emailConfigService.getCredentials().password);
+    
 
     try {
       await this.appendEmailFields(formData);
@@ -205,12 +213,10 @@ export class EmailIndividualComponent implements OnInit {
           this.loading = false;
           alert('Document was sent successfully');
           this.emailForm.reset();
-          this.router
-            .navigateByUrl('/archives', { skipLocationChange: true })
-            .then(() => {
-              this.router.navigate([this.router.url]);
-              window.location.reload();
-            });
+          this.router.navigateByUrl('/dashboard/archives', { skipLocationChange: true }).then(() => {
+            this.router.navigate([this.router.url]);
+            window.location.reload();
+          });
         },
         error: (error) => {
           console.error('Error sending email:', error);
