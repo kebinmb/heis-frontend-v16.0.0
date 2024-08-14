@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -41,22 +41,31 @@ export class LogsService {
     );
   }
 
-  getDocumentLogs(date:string,campus:number):Observable<any[]>{
+  getDocumentLogs(date: string, campus: string): Observable<any[]> {
     const params = new HttpParams()
-    .set('date',date)
-    .set('campus',campus.toString())
-    return (this.http.get(`${this.apiServerUrl}/logs/documentLogs`,{params,responseType:'text'}).pipe(
-      map((response:any)=>{
-        try{
-          console.log("Document Logs From Service:",response)
-          return JSON.parse(response);
-        }catch(e){
-          console.error('Failed to parse response',e);
-          return [];
-        }
-      })
-    ))
-  }
+        .set('date', date)
+        .set('campus', campus.toString());
+
+    const url = campus === "4"
+        ? `${this.apiServerUrl}/logs/documentLogsTalisayAccess`
+        : `${this.apiServerUrl}/logs/documentLogs`;
+    console.log(url);
+    return this.http.get(url, { params, responseType: 'text' }).pipe(
+        map((response: string) => {
+            try {
+                return JSON.parse(response);
+            } catch (e) {
+                console.error('Failed to parse response', e);
+                return [];
+            }
+        }),
+        catchError((error) => {
+            console.error('Error fetching document logs', error);
+            return of([]); // Return an empty array in case of an error
+        })
+    );
+}
+
 
   getUserMaintenanceLogs(date:string,campus:number):Observable<any[]>{
     const params = new HttpParams()

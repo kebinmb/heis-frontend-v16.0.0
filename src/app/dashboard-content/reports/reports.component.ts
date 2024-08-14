@@ -173,7 +173,7 @@ export class ReportsComponent implements OnInit {
   selectedMonth: string;
   selectedYear: number;
   selectedMonthExternal: string;
-  selectedYearExternal: string;
+  selectedYearExternal: number;
   selectedDate: Date = new Date();
   months = [
     { value: '01', viewValue: 'January' },
@@ -256,7 +256,10 @@ export class ReportsComponent implements OnInit {
       .toString()
       .padStart(2, '0'); // Months are 0-based, so add 1 and pad with zero if necessary
     this.selectedYear = currentDate.getFullYear();
-
+    this.selectedMonthExternal = (currentDate.getMonth() + 1)
+    .toString()
+    .padStart(2, '0');
+    this.selectedYearExternal = currentDate.getFullYear();
     this.loadReports();
   }
 
@@ -336,7 +339,7 @@ export class ReportsComponent implements OnInit {
     });
   }
 
-  loadExternalMonthlyReports(month: string, year: string) {
+  loadExternalMonthlyReports(month: string, year: number) {
     this.store.dispatch(loadExternalReports({ month, year }));
     this.loadDepartmentUserNames();
   }
@@ -390,7 +393,7 @@ export class ReportsComponent implements OnInit {
     this.selectedMonthExternal = month;
   }
 
-  onYearChangeExternal(year: string) {
+  onYearChangeExternal(year: number) {
     this.selectedYearExternal = year;
   }
 
