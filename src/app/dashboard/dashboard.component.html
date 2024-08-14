@@ -4,9 +4,9 @@
   </div>
 
   <div class="main-panel">
-    <app-header></app-header>
+    <app-header [title]="pageTitle"></app-header>
     <div class="content">
-      <router-outlet></router-outlet>
+      <router-outlet (activate)="onActivate($event)"></router-outlet>
     </div>
   </div>
 

@@ -16,6 +16,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { EmailConfigService } from 'src/app/new-document/email-config.service';
+import { EmailService } from '../email-individual/email.service';
 
 @Component({
   selector: 'app-email-group',
@@ -29,6 +30,7 @@ export class EmailGroupComponent implements OnInit {
   showDepartmentStaff: string;
   departmentNameValue: number;
   emailForm: FormGroup;
+  userIdAsEncoder:number;
   departmentId: number[] = [];
   userFromDepartment: any[] = [];
   regularDepartmentStaff: any[] = [];
@@ -72,9 +74,10 @@ export class EmailGroupComponent implements OnInit {
 
   constructor(
     private emailGroupService: EmailGroupService,
+    private emailServce:EmailService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private emailConfigService:EmailConfigService
+    private emailConfigService:EmailConfigService,
   ) {
     this.emailForm = this.formBuilder.group({
       documentNumber: [{ value: this.nextDocumentNumber, disabled: true }],
@@ -88,7 +91,7 @@ export class EmailGroupComponent implements OnInit {
       attachment: ['', Validators.required],
       campus: ['', Validators.required],
       cc: this.formBuilder.array([]),
-      encoder: [4, Validators.required],
+      encoder: [0, Validators.required],
       message: ['', Validators.required],
       departmentId: [''],
       username:[''],
@@ -127,7 +130,8 @@ export class EmailGroupComponent implements OnInit {
         formData.append('dateOfLetter', this.formatDate(dateOfLetter));
         formData.append('type', type);
         formData.append('campus', campus);
-        formData.append('encoder', encoder);
+        await this.getUserIdAsEncoder();
+        formData.append('encoder', this.userIdAsEncoder.toString());
         formData.append('attention', attention);
 
         await this.getEmailThrough();
@@ -251,6 +255,23 @@ export class EmailGroupComponent implements OnInit {
         designation: user.designation,
         email: user.email,
       }));
+  }
+  async getUserIdAsEncoder(): Promise<void> {
+    try {
+      const userInputName = this.emailForm.value.from;
+      const users: any = await firstValueFrom(this.emailServce.getAllUser());
+      const matchedUser = users.find(
+        (user: any) => user.name === userInputName
+      );
+      if (matchedUser) {
+        this.userIdAsEncoder = matchedUser.userId;
+       
+      } else {
+        console.error('No user found with the provided name');
+      }
+    } catch (error) {
+      console.error('Error fetching users from attention column: ', error);
+    }
   }
 
   getAllUserFromDepartment() {

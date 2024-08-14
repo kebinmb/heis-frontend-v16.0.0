@@ -23,6 +23,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { EmailConfigService } from '../../../new-document/email-config.service';
+import { EmailService } from '../email-individual/email.service';
 
 @Component({
   selector: 'app-email-multiple',
@@ -39,6 +40,7 @@ export class EmailMultipleComponent implements OnInit {
   filteredAttentionUsers: Observable<string[]>;
   filteredFromUsers: Observable<string[]>;
   attentionAddress: string;
+  userIdAsEncoder:number;
   emailAddressThrough: string;
   senderDepartmentId:string;
   fromAddressEmail: string;
@@ -51,7 +53,8 @@ export class EmailMultipleComponent implements OnInit {
     private router: Router,
     private emailMultipleService: EmailMultipleService,
     private cdr: ChangeDetectorRef,
-    private emailConfigService:EmailConfigService
+    private emailConfigService:EmailConfigService,
+    private emailService:EmailService
   ) {
     this.emailForm = this.formBuilder.group({
       documentNumber: [{ value: this.nextDocumentNumber, disabled: true }],
@@ -65,7 +68,7 @@ export class EmailMultipleComponent implements OnInit {
       attachment: ['', Validators.required],
       campus: [4, Validators.required],
       cc: this.formBuilder.array([]),
-      encoder: [4, Validators.required],
+      encoder: [0, Validators.required],
       message: ['', Validators.required],
       departmentId: [''],
       username:[''],
@@ -217,7 +220,8 @@ export class EmailMultipleComponent implements OnInit {
       formData.append('dateOfLetter', this.formatDate(dateOfLetter));
       formData.append('type', type);
       formData.append('campus', campus);
-      formData.append('encoder', encoder);
+      await this.getUserIdAsEncoder();
+      formData.append('encoder', this.userIdAsEncoder.toString());
 
       const attentionEmails = await this.getAttentionEmails();
       formData.append('attention', attentionEmails);
@@ -317,5 +321,22 @@ export class EmailMultipleComponent implements OnInit {
         console.error('Error fetching next document number:', error);
       }
     });
+  }
+
+  async getUserIdAsEncoder(): Promise<void> {
+    try {
+      const userInputName = this.emailForm.value.from;
+      const users: any = await firstValueFrom(this.emailService.getAllUser());
+      const matchedUser = users.find(
+        (user: any) => user.name === userInputName
+      );
+      if (matchedUser) {
+        this.userIdAsEncoder = matchedUser.userId;
+      } else {
+        console.error('No user found with the provided name');
+      }
+    } catch (error) {
+      console.error('Error fetching users from attention column: ', error);
+    }
   }
 }

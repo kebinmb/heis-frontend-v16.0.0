@@ -26,6 +26,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Router } from '@angular/router';
 import { FormArrayException } from '../../exceptions/formArrayException';
 import { EmailConfigService } from 'src/app/new-document/email-config.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -43,6 +44,7 @@ export class EmailIndividualComponent implements OnInit {
   attentionAddress: string;
   fromAddress: string;
   documentDepartmentId: number;
+  userIdAsEncoder:number;
   usersName: string[] = [];
   filteredThroughUsers: Observable<string[]>;
   filteredAttentionUsers: Observable<string[]>;
@@ -53,7 +55,8 @@ export class EmailIndividualComponent implements OnInit {
     private emailService: EmailService,
     private emailConfigService:EmailConfigService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private snackbar:MatSnackBar
   ) {
     this.emailForm = this.formBuilder.group({
       documentNumber: [{ value: this.nextDocumentNumber, disabled: true }],
@@ -67,7 +70,7 @@ export class EmailIndividualComponent implements OnInit {
       attachment: ['', Validators.required],
       campus: [4, Validators.required],
       cc: this.formBuilder.array([]),
-      encoder: [4, Validators.required],
+      encoder: [0, Validators.required],
       message: ['', Validators.required],
       departmentId: [''],
       username:[''],
@@ -198,7 +201,8 @@ export class EmailIndividualComponent implements OnInit {
     formData.append('pageCount', pageCount.toString());
     formData.append('campus', campus.toString());
     formData.append('cc', cc);
-    formData.append('encoder', encoder.toString());
+    this.getUserIdAsEncoder();
+    formData.append('encoder', this.userIdAsEncoder.toString());
     formData.append('message', message);
     formData.append('username', this.emailConfigService.getCredentials().username);
     formData.append('password', this.emailConfigService.getCredentials().password);
@@ -211,11 +215,17 @@ export class EmailIndividualComponent implements OnInit {
       this.emailService.sendEmail(formData).subscribe({
         next: (response) => {
             this.loading = false;
-            alert('Document was sent successfully');
-            this.emailForm.reset();
-            this.router.navigate(['/dashboard/archives'], { skipLocationChange: true }).then(() => {
-              window.location.reload();
-          });
+            this.snackbar.open("Document Sent Successfully", "Close", {
+              duration: 3000, // Duration in milliseconds
+              horizontalPosition: 'right',
+              verticalPosition: 'top'
+            });
+            setTimeout(() => {
+              this.emailForm.reset();
+              this.router.navigate(['/dashboard/archives'], { skipLocationChange: true }).then(() => {
+                window.location.reload(); // Reload the page if necessary
+              });
+            }, 3000);
         },
         error: (error) => {
             console.error('Error sending email:', error);
@@ -320,6 +330,22 @@ export class EmailIndividualComponent implements OnInit {
       if (matchedUser) {
         this.attentionAddress = matchedUser.email;
         console.log(this.attentionAddress);
+      } else {
+        console.error('No user found with the provided name');
+      }
+    } catch (error) {
+      console.error('Error fetching users from attention column: ', error);
+    }
+  }
+  async getUserIdAsEncoder(): Promise<void> {
+    try {
+      const userInputName = this.emailForm.value.from;
+      const users: any = await firstValueFrom(this.emailService.getAllUser());
+      const matchedUser = users.find(
+        (user: any) => user.name === userInputName
+      );
+      if (matchedUser) {
+        this.userIdAsEncoder = matchedUser.userId;
       } else {
         console.error('No user found with the provided name');
       }

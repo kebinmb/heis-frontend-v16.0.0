@@ -23,7 +23,7 @@ import { DocumentDetailsModalComponent } from './document-details-modal/document
 export class ArchiveComponent implements OnInit {
   @ViewChild('paginatorArchives', { static: true }) paginatorArchives: MatPaginator;
   @ViewChild(MatSort) sortArchives: MatSort;
-
+  
   displayedColumnsArchives: string[] = ['documentNumber', 'type', 'userNameSender', 'userName', 'subject', 'timestamp'];
   archivesArray$: Observable<any[]>;
   userListArray$: Observable<any[]>;
