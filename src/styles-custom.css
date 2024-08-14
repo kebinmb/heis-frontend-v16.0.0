@@ -387,3 +387,7 @@ html {
     margin-left: 32px !important;
   }
 }
+
+.mat-mdc-progress-spinner {
+  --mdc-circular-progress-active-indicator-color: var(--mat-primary) !important;
+}
