@@ -210,20 +210,19 @@ export class EmailIndividualComponent implements OnInit {
 
       this.emailService.sendEmail(formData).subscribe({
         next: (response) => {
-          this.loading = false;
-          alert('Document was sent successfully');
-          this.emailForm.reset();
-          this.router.navigateByUrl('/dashboard/archives', { skipLocationChange: true }).then(() => {
-            this.router.navigate([this.router.url]);
-            window.location.reload();
+            this.loading = false;
+            alert('Document was sent successfully');
+            this.emailForm.reset();
+            this.router.navigate(['/dashboard/archives'], { skipLocationChange: true }).then(() => {
+              window.location.reload();
           });
         },
         error: (error) => {
-          console.error('Error sending email:', error);
-          alert('An error occurred while sending the document');
-          this.loading = false;
+            console.error('Error sending email:', error);
+            alert('An error occurred while sending the document');
+            this.loading = false;
         },
-      });
+    });
     } catch (error) {
       console.error('Error during email preparation:', error);
       alert('An error occurred during email preparation');

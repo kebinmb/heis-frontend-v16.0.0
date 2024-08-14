@@ -22,6 +22,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { EmailConfigService } from '../../../new-document/email-config.service';
 
 @Component({
   selector: 'app-email-multiple',
@@ -39,6 +40,7 @@ export class EmailMultipleComponent implements OnInit {
   filteredFromUsers: Observable<string[]>;
   attentionAddress: string;
   emailAddressThrough: string;
+  senderDepartmentId:string;
   fromAddressEmail: string;
   loading = false;
   usersName: string[] = [];
@@ -48,7 +50,8 @@ export class EmailMultipleComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private emailMultipleService: EmailMultipleService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private emailConfigService:EmailConfigService
   ) {
     this.emailForm = this.formBuilder.group({
       documentNumber: [{ value: this.nextDocumentNumber, disabled: true }],
@@ -64,7 +67,9 @@ export class EmailMultipleComponent implements OnInit {
       cc: this.formBuilder.array([]),
       encoder: [4, Validators.required],
       message: ['', Validators.required],
-      departmentId: ['523'],
+      departmentId: [''],
+      username:[''],
+      password:['']
     });
   }
 
@@ -72,6 +77,9 @@ export class EmailMultipleComponent implements OnInit {
     this.getNextDocumentNumber();
     this.getUsersName();
     this.setupAutocompleteFilters();
+    this.getSenderDepartmentId();
+    console.log("aa")
+    console.log(this.senderDepartmentId);
   }
 
   private setupAutocompleteFilters(): void {
@@ -112,6 +120,8 @@ export class EmailMultipleComponent implements OnInit {
     }
   }
 
+  
+
   private async getEmailThrough(): Promise<void> {
     try {
       const userInputName = this.emailForm.value.through;
@@ -129,6 +139,18 @@ export class EmailMultipleComponent implements OnInit {
       const users: any = await firstValueFrom(this.emailMultipleService.getAllUserDetails());
       const matchedUser = users.find((user: any) => user.name === userInputName);
       this.fromAddressEmail = matchedUser ? matchedUser.email : '';
+    } catch (error) {
+      console.error('Error fetching from email:', error);
+    }
+  }
+
+  private async getSenderDepartmentId(): Promise<void> {
+    try {
+      const userInputName = this.emailForm.value.from;
+      const users: any = await firstValueFrom(this.emailMultipleService.getAllUserDetails());
+      console.log(users);
+      const matchedUser = users.find((user: any) => user.name === userInputName);
+      this.senderDepartmentId = matchedUser ? matchedUser.departmentId : 0;
     } catch (error) {
       console.error('Error fetching from email:', error);
     }
@@ -204,20 +226,21 @@ export class EmailMultipleComponent implements OnInit {
       formData.append('through', this.emailAddressThrough);
       await this.getEmailFrom();
       formData.append('from', this.fromAddressEmail);
-
+    
       formData.append('cc', cc);
       formData.append('pageCount', pageCount.toString());
       formData.append('message', message);
-      formData.append('departmentId', this.departmentId[0]);
-      
+      await this.getSenderDepartmentId();
+      formData.append('departmentId', this.senderDepartmentId);
+      formData.append('username', this.emailConfigService.getCredentials().username);
+      formData.append('password', this.emailConfigService.getCredentials().password);
 
       this.emailMultipleService.sendEmail(formData).subscribe({
         next: () => {
           this.loading = false;
           alert('Document was sent successfully');
           this.emailForm.reset();
-          this.router.navigateByUrl('/archives', { skipLocationChange: true }).then(() => {
-            this.router.navigate([this.router.url]);
+          this.router.navigate(['/dashboard/archives'], { skipLocationChange: true }).then(() => {
             window.location.reload();
           });
         },

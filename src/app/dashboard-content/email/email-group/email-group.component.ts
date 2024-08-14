@@ -15,6 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { EmailConfigService } from 'src/app/new-document/email-config.service';
 
 @Component({
   selector: 'app-email-group',
@@ -72,7 +73,8 @@ export class EmailGroupComponent implements OnInit {
   constructor(
     private emailGroupService: EmailGroupService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private emailConfigService:EmailConfigService
   ) {
     this.emailForm = this.formBuilder.group({
       documentNumber: [{ value: this.nextDocumentNumber, disabled: true }],
@@ -89,6 +91,8 @@ export class EmailGroupComponent implements OnInit {
       encoder: [4, Validators.required],
       message: ['', Validators.required],
       departmentId: [''],
+      username:[''],
+      password:['']
     });
   }
 
@@ -136,7 +140,8 @@ export class EmailGroupComponent implements OnInit {
         formData.append('pageCount', pageCount.toString());
         formData.append('message', message);
         formData.append('departmentId', this.departmentId[0].toString());
-
+        formData.append('username', this.emailConfigService.getCredentials().username);
+        formData.append('password', this.emailConfigService.getCredentials().password);
         this.loading = true;
 
         this.emailGroupService.sendEmail(formData).subscribe({
@@ -145,8 +150,7 @@ export class EmailGroupComponent implements OnInit {
             console.log('Document sent and file uploaded successfully:', response);
             alert('Document was sent successfully');
             this.emailForm.reset();
-            this.router.navigateByUrl('/archives', { skipLocationChange: true }).then(() => {
-              this.router.navigate([this.router.url]);
+            this.router.navigate(['/dashboard/archives'], { skipLocationChange: true }).then(() => {
               window.location.reload();
             });
           },

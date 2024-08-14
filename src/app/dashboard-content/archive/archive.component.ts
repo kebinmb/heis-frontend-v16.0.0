@@ -116,8 +116,9 @@ export class ArchiveComponent implements OnInit {
         ? archive.attention.split(',').map((att: string) => {
             const receiver = this.users.find((user) => user.userId.toString() === att.trim());
             return receiver ? receiver.name : 'Unknown Receiver';
-          })
-        : [];
+          }).filter((name: string) => name !== '').join(', ')
+        : 'Unknown Receiver';
+
       return {
         ...archive,
         userName: user ? user.name : 'Unknown User',
@@ -128,7 +129,7 @@ export class ArchiveComponent implements OnInit {
 
     console.log("Final:", finalArchives);
     return finalArchives;
-  }
+}
   
 
   openDialog(document: any): void {

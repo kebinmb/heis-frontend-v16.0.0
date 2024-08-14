@@ -42,11 +42,17 @@ export class DepartmentUserNameEffects {
                                     (department) =>
                                         externalMonthlyReports.departmentId === department.departmentId
                                 );
-                                const receiverName = userMap.get(externalMonthlyReports.attention) || '';
+                                
+                                // const receiverName = userMap.get(externalMonthlyReports.attention) || '';
+                                const receiverNames = externalMonthlyReports.attention.toString()
+                                .split(',')
+                                .map((userId: string) => userMap.get(userId.trim()) || '')
+                                .filter((name:any) => name !== '')  // Filter out any empty names
+                                .join(', ');
                                 return {
                                     ...externalMonthlyReports,
                                     departmentName: matchedDepartment ? matchedDepartment.departmentName : '',
-                                    receiverName
+                                    receiverNames:receiverNames
                                 };
                             }
                         );
