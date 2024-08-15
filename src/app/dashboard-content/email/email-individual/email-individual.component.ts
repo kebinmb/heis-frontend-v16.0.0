@@ -39,7 +39,7 @@ export class EmailIndividualComponent implements OnInit {
     return this.emailForm.get(controlName) as FormControl;
   }
   emailForm: FormGroup;
-  nextDocumentNumber: number;
+  nextDocumentNumber: number = 0;
   emailAddress: string;
   attentionAddress: string;
   fromAddress: string;
@@ -151,7 +151,7 @@ export class EmailIndividualComponent implements OnInit {
     this.emailService.nextDocumentNumber().subscribe({
       next: (count) => {
         this.nextDocumentNumber = count;
-        console.log('Total documents:', this.nextDocumentNumber);
+        // console.log('Total documents:', this.nextDocumentNumber);
       },
       error: (error) => {
         console.error('Error fetching the total document count', error);
@@ -162,7 +162,11 @@ export class EmailIndividualComponent implements OnInit {
   //Added try-catch blocks and modularize the code
   async sendEmail() {
     if (!this.emailForm.valid) {
-      alert('Form is invalid');
+      this.snackbar.open('Form is Invalid',"Close",{
+        duration:3000,
+           horizontalPosition: 'right',
+              verticalPosition: 'top'
+      });
       return;
     }
 
@@ -229,13 +233,21 @@ export class EmailIndividualComponent implements OnInit {
         },
         error: (error) => {
             console.error('Error sending email:', error);
-            alert('An error occurred while sending the document');
+            this.snackbar.open("An error occurred while sending the document","Close",{
+              duration:3000,
+              horizontalPosition:'right',
+              verticalPosition:'top'
+            });
             this.loading = false;
         },
     });
     } catch (error) {
       console.error('Error during email preparation:', error);
-      alert('An error occurred during email preparation');
+      this.snackbar.open("An error occurred during email preparation","Close",{
+        duration:3000,
+        horizontalPosition:'right',
+        verticalPosition:'top'
+      })
     }
   }
 
@@ -287,7 +299,7 @@ export class EmailIndividualComponent implements OnInit {
   private handleUsersResponse(users: any[]) {
     try {
       this.usersName = users.map((user) => user.name);
-      console.log(this.usersName);
+      // console.log(this.usersName);
     } catch (error) {
       this.handleUsersError(error);
     }
@@ -311,7 +323,7 @@ export class EmailIndividualComponent implements OnInit {
       );
       if (matchedUser) {
         this.emailAddress = matchedUser.email;
-        console.log(this.emailAddress);
+        // console.log(this.emailAddress);
       } else {
         console.error('No user found with the provided name');
       }
@@ -329,12 +341,21 @@ export class EmailIndividualComponent implements OnInit {
       );
       if (matchedUser) {
         this.attentionAddress = matchedUser.email;
-        console.log(this.attentionAddress);
+        // console.log(this.attentionAddress);
       } else {
-        console.error('No user found with the provided name');
+        this.snackbar.open('No user found with the provided name', "Close",{
+          duration:3000,
+          horizontalPosition:'right',
+          verticalPosition:'top'
+        })
       }
     } catch (error) {
-      console.error('Error fetching users from attention column: ', error);
+      console.error(error);
+      this.snackbar.open('Error fetching users contact developer',"Close",{
+        duration:3000,
+        horizontalPosition:'right',
+        verticalPosition:'top'
+      })
     }
   }
   async getUserIdAsEncoder(): Promise<void> {
@@ -363,7 +384,7 @@ export class EmailIndividualComponent implements OnInit {
       );
       if (matchedUser) {
         this.fromAddress = matchedUser.email;
-        console.log(this.fromAddress);
+        // console.log(this.fromAddress);
       } else {
         console.error('No user found with the provided name');
       }

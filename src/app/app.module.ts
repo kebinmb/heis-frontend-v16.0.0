@@ -75,6 +75,8 @@ import { LogsDocumentComponent } from './logs-document/logs-document.component';
 import { UserMaintenanceLogsComponent } from './user-maintenance-logs/user-maintenance-logs.component';
 import { CredentialsComponent } from './credentials/credentials.component';
 import { CredentialsLogsComponent } from './credentials-logs/credentials-logs.component';
+import { HeaderPrintComponent } from './header-print/header-print.component';
+
 
 @NgModule({
   declarations: [
@@ -97,7 +99,9 @@ import { CredentialsLogsComponent } from './credentials-logs/credentials-logs.co
     LogsDocumentComponent,
     UserMaintenanceLogsComponent,
     CredentialsComponent,
-    CredentialsLogsComponent
+    CredentialsLogsComponent,
+ 
+
  
   ],
   imports: [

@@ -24,6 +24,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { EmailConfigService } from '../../../new-document/email-config.service';
 import { EmailService } from '../email-individual/email.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-email-multiple',
@@ -54,7 +55,8 @@ export class EmailMultipleComponent implements OnInit {
     private emailMultipleService: EmailMultipleService,
     private cdr: ChangeDetectorRef,
     private emailConfigService:EmailConfigService,
-    private emailService:EmailService
+    private emailService:EmailService,
+    private snackBar:MatSnackBar
   ) {
     this.emailForm = this.formBuilder.group({
       documentNumber: [{ value: this.nextDocumentNumber, disabled: true }],
@@ -81,8 +83,8 @@ export class EmailMultipleComponent implements OnInit {
     this.getUsersName();
     this.setupAutocompleteFilters();
     this.getSenderDepartmentId();
-    console.log("aa")
-    console.log(this.senderDepartmentId);
+    // console.log("aa")
+    // console.log(this.senderDepartmentId);
   }
 
   private setupAutocompleteFilters(): void {
@@ -151,7 +153,7 @@ export class EmailMultipleComponent implements OnInit {
     try {
       const userInputName = this.emailForm.value.from;
       const users: any = await firstValueFrom(this.emailMultipleService.getAllUserDetails());
-      console.log(users);
+      // console.log(users);
       const matchedUser = users.find((user: any) => user.name === userInputName);
       this.senderDepartmentId = matchedUser ? matchedUser.departmentId : 0;
     } catch (error) {
@@ -242,7 +244,11 @@ export class EmailMultipleComponent implements OnInit {
       this.emailMultipleService.sendEmail(formData).subscribe({
         next: () => {
           this.loading = false;
-          alert('Document was sent successfully');
+          this.snackBar.open("Document was sent successfully","Close",{
+            duration:3000,
+            horizontalPosition:'right',
+            verticalPosition:'top'
+          })
           this.emailForm.reset();
           this.router.navigate(['/dashboard/archives'], { skipLocationChange: true }).then(() => {
             window.location.reload();
@@ -250,12 +256,20 @@ export class EmailMultipleComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error sending document:', error);
-          alert('Error sending document');
+          this.snackBar.open("Error sending document","Close",{
+            duration:3000,
+            horizontalPosition:'right',
+            verticalPosition:'top'
+          });
           this.loading = false;
         },
       });
     } else {
-      alert('Form is invalid');
+      this.snackBar.open("Form is Invalid","Close",{
+        duration:3000,
+        horizontalPosition:'right',
+        verticalPosition:'top'
+      });
     }
   }
 

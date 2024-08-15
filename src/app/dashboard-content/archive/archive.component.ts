@@ -127,7 +127,7 @@ export class ArchiveComponent implements OnInit {
       };
     });
 
-    console.log("Final:", finalArchives);
+    // console.log("Final:", finalArchives);
     return finalArchives;
 }
   

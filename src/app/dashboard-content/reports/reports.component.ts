@@ -71,6 +71,7 @@ import { selectFinalExternalMonthyReports } from './external-report-department-u
 import { formatDateToYYYYMMDD } from './dateFormater';
 import { MatSelectModule } from '@angular/material/select';
 import { MatNativeDateModule } from '@angular/material/core';
+import { HeaderPrintComponent } from "../../header-print/header-print.component";
 
 
 
@@ -97,8 +98,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatDatepickerModule,
     MatNativeDateModule,
     ReactiveFormsModule,
-    NgxPrintModule
-  ],
+    NgxPrintModule,
+    HeaderPrintComponent
+],
   templateUrl: './reports.component.html',
   styleUrls: ['./reports.component.css'],
 })
@@ -352,7 +354,7 @@ export class ReportsComponent implements OnInit {
           externalMonthlyReportsArray: this.finalExternalMonthlyReportsArray,
         })
       );
-      console.log('External Reports:', externalMonthlyReportsArray)
+      // console.log('External Reports:', externalMonthlyReportsArray)
     });
 
     this.finalExternalMonthlyReports$.subscribe((finalExternalMonthlyReports) => {
@@ -363,7 +365,7 @@ export class ReportsComponent implements OnInit {
       this.dataSourceExternalMonthlyReports.sort = this.sortExternalMonthlyReports;
       this.dataSourceExternalMonthlyReports.paginator = this.paginatorExternalMonthlyReports;
     });
-    console.log('Final External Reports:', this.finalExternalMonthlyReportsArray)
+    // console.log('Final External Reports:', this.finalExternalMonthlyReportsArray)
   }
 
 
@@ -458,6 +460,8 @@ export class ReportsComponent implements OnInit {
     return this.finalDailyReportsArray.filter((report) => report.type === 5)
       .length;
   }
+
+  
 
   private formatDate(date: Date): string {
     const year = date.getFullYear();

@@ -121,7 +121,7 @@ tr.mat-row:nth-child(even) {
   table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;
+    margin-top: 20%;
   }
 
   th,
@@ -152,6 +152,14 @@ tr.mat-row:nth-child(even) {
     margin-bottom: 20px;
     font-size: 18px;
     font-weight: 500; /* Semi-bold to match Angular Material */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff; /* Ensure background is white for print */
+    border-bottom: 1px solid #e0e0e0; /* Add border to distinguish header */
+    padding: 10px 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Optional shadow for better separation */
   }
 
   @page {
@@ -159,9 +167,35 @@ tr.mat-row:nth-child(even) {
     margin: 20mm; /* Ensure content fits well on the page */
   }
 
+  /* Repeat the header on each page */
+  @page {
+    @top-left {
+      content: element(header);
+    }
+  }
+
   /* Hide other elements or apply print-specific styles if needed */
   button {
     display: none; /* Hide the print button in print view */
+  }
+}
+
+/* Ensuring that the header is part of the printable content */
+@media print {
+  .print-header {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  body {
+    margin-top: 60px; /* Space for the fixed header */
   }
 }
 
