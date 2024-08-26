@@ -82,7 +82,7 @@ export class RecipientsComponent {
       this.finalInstitutionArray = finalArray;
       // this.dataSource.data = this.finalInstitutionArray;
       // this.dataSource.paginator = this.paginatorUser;
-      console.log(this.finalInstitutionArray);
+      // console.log(this.finalInstitutionArray);
     });
   }
 
@@ -105,7 +105,7 @@ export class RecipientsComponent {
       // Uncomment these lines if you want to use the data source for a table
       this.dataSource.data = this.finalInstitutionArray;
       this.dataSource.paginator = this.paginatorUser;
-      console.log("Final Array:", this.finalInstitutionArray);
+      // console.log("Final Array:", this.finalInstitutionArray);
     });
   }
 
@@ -119,7 +119,7 @@ export class RecipientsComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      // console.log('The dialog was closed');
       // Handle any result here
     });
   }
@@ -133,7 +133,7 @@ export class RecipientsComponent {
     });
   
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      // console.log('The dialog was closed');
       // Handle any result here if needed
     });
   }
@@ -149,7 +149,7 @@ export class RecipientsComponent {
   
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'confirm') {
-        console.log(userId);
+        // console.log(userId);
         // Call the deleteDepartment method from the service
         this.institutionService.deleteUser(userId).subscribe({
           next: () => {

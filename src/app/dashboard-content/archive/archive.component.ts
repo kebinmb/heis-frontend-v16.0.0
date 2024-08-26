@@ -164,7 +164,7 @@ filteredFortuneTowneArchives:any[] = [];
         };
     });
 
-    console.log("Final Archives:", finalArchives);
+    // console.log("Final:", finalArchives);
     return finalArchives;
 }
   

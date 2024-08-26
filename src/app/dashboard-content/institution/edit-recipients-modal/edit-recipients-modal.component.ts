@@ -21,7 +21,7 @@ export class EditRecipientsModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("Modal Data:", this.user.userId);
+    // console.log("Modal Data:", this.user.userId);
   }
 
   onSubmit(): void {

@@ -17,6 +17,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { EmailConfigService } from 'src/app/new-document/email-config.service';
 import { EmailService } from '../email-individual/email.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-email-group',
@@ -78,6 +79,7 @@ export class EmailGroupComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private emailConfigService:EmailConfigService,
+    private snackBar:MatSnackBar
   ) {
     this.emailForm = this.formBuilder.group({
       documentNumber: [{ value: this.nextDocumentNumber, disabled: true }],
@@ -151,8 +153,12 @@ export class EmailGroupComponent implements OnInit {
         this.emailGroupService.sendEmail(formData).subscribe({
           next: (response) => {
             this.loading = false;
-            console.log('Document sent and file uploaded successfully:', response);
-            alert('Document was sent successfully');
+            // console.log('Document sent and file uploaded successfully:', response);
+            this.snackBar.open("Document was sent successfully","Close",{
+              duration:3000,
+              horizontalPosition:'right',
+              verticalPosition:'top'
+            });
             this.emailForm.reset();
             this.router.navigate(['/dashboard/archives'], { skipLocationChange: true }).then(() => {
               window.location.reload();
@@ -160,17 +166,29 @@ export class EmailGroupComponent implements OnInit {
           },
           error: (error) => {
             console.error('Error sending document:', error);
-            alert('Error sending document');
+           this.snackBar.open("Error sending document","Close",{
+            duration:3000,
+            horizontalPosition:'right',
+            verticalPosition:'top'
+           })
             this.loading = false;
           },
         });
       } catch (error) {
         console.error('Error during email sending process:', error);
-        alert('An unexpected error occurred while sending the email');
+        this.snackBar.open("An unexpected error occurred while sending the email","Close",{
+          duration:3000,
+          horizontalPosition:'right',
+          verticalPosition:'top'
+        })
         this.loading = false;
       }
     } else {
-      alert('Form is invalid');
+      this.snackBar.open("Form is invalid","Close",{
+        duration:3000,
+        horizontalPosition:'right',
+        verticalPosition:'top'
+      })
     }
   }
 
@@ -383,7 +401,7 @@ export class EmailGroupComponent implements OnInit {
     const matchedUser = users.find((user: any) => user.name === userInputName);
     if (matchedUser) {
       this.emailAddressThrough = matchedUser.email;
-      console.log(this.emailAddressThrough);
+      // console.log(this.emailAddressThrough);
     } else {
       console.error('No user found with the provided name');
     }
@@ -397,7 +415,7 @@ export class EmailGroupComponent implements OnInit {
     const matchedUser = users.find((user: any) => user.name === userInputName);
     if (matchedUser) {
       this.fromAddressEmail = matchedUser.email;
-      console.log(this.fromAddressEmail);
+      // console.log(this.fromAddressEmail);
     } else {
       console.error('No user found with the provided name');
     }

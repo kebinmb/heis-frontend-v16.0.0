@@ -17,8 +17,8 @@ export class DepartmentUserNameEffects {
                     userList: this.reportsService.getUserList()
                 }).pipe(
                     map(({ departmentList, userList }) => {
-                        console.log('Fetched Department List from External Reports:', departmentList);
-                        console.log('Fetched User List from External Reports:', userList);
+                        // console.log('Fetched Department List from External Reports:', departmentList);
+                        // console.log('Fetched User List from External Reports:', userList);
 
                         const departmentNames = departmentList
                             .filter((department: any) =>
@@ -56,7 +56,7 @@ export class DepartmentUserNameEffects {
                                 };
                             }
                         );
-                        console.log('Final External Monthly Reports Array with Receivers:', finalExternalMonthlyReports);
+                        // console.log('Final External Monthly Reports Array with Receivers:', finalExternalMonthlyReports);
                         return updateFinalExternalReports({ finalExternalMonthlyReports });
                     }),
                     catchError((error) => {

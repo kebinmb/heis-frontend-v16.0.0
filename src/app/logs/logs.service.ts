@@ -49,7 +49,7 @@ export class LogsService {
     const url = campus === "4"
         ? `${this.apiServerUrl}/logs/documentLogsTalisayAccess`
         : `${this.apiServerUrl}/logs/documentLogs`;
-    console.log(url);
+    // console.log(url);
     return this.http.get(url, { params, responseType: 'text' }).pipe(
         map((response: string) => {
             try {

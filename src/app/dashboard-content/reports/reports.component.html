@@ -59,7 +59,7 @@
           <div class="the-table-container" id="dailyReportsTable">
             <!-- Hidden header for print view -->
             <div id="printHeader" class="print-header">
-              <h1>Report Header</h1>
+              <app-header-print></app-header-print>
             </div>
             <table
               mat-table
@@ -166,7 +166,7 @@
             <div id="printHeader" class="print-header">
               <h1>Report Header</h1>
             </div>
-            <table mat-table [dataSource]="dataSourceMonthlyReports" matSort>
+            <table mat-table [dataSource]="dataSourceMonthlyReports" matSort >
               <!-- Document Number Column -->
               <ng-container matColumnDef="documentNumber">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>
