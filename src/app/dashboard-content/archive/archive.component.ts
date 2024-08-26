@@ -14,6 +14,7 @@ import { selectArchive } from './archives-state-manager1/archives.selector';
 import { loadUserArchiveList } from './archives-user-state-manager/archives-users.actions';
 import { selectUserList } from './archives-user-state-manager/archives-users.selector';
 import { DocumentDetailsModalComponent } from './document-details-modal/document-details-modal.component';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-archive',
@@ -33,6 +34,11 @@ export class ArchiveComponent implements OnInit {
   dataSourceArchives: MatTableDataSource<any>;
   selectedMonth: string;
   selectedYear: number;
+
+  filteredTalisayArchives:any[] = [];
+filteredBinalbaganArchives:any[] = [];
+filteredAlijisArchives :any[] = [];
+filteredFortuneTowneArchives:any[] = [];
   months = [
     { value: '01', viewValue: 'January' },
     { value: '02', viewValue: 'February' },
@@ -109,25 +115,56 @@ export class ArchiveComponent implements OnInit {
   }
 
   processArchivesAndCache() {
-    const finalArchives = this.archives.map((archive) => {
-      const user = this.users.find((user) => user.userId.toString() === archive.attention);
-      const sender = this.users.find((sender) => sender.userId.toString() === archive.from);
-      const receiverNames = archive.attention
-        ? archive.attention.split(',').map((att: string) => {
-            const receiver = this.users.find((user) => user.userId.toString() === att.trim());
-            return receiver ? receiver.name : 'Unknown Receiver';
-          }).filter((name: string) => name !== '').join(', ')
-        : 'Unknown Receiver';
+    const encryptedCampusValue = sessionStorage.getItem('campus');
 
-      return {
-        ...archive,
-        userName: user ? user.name : 'Unknown User',
-        userNameSender: sender ? sender.name : 'Unknown Sender',
-        receiverNames: receiverNames
-      };
+    // Decrypt the campus value
+    const decryptedCampusValue = encryptedCampusValue
+        ? CryptoJS.AES.decrypt(encryptedCampusValue, 'chmsu.edu.ph.secret-key.secret').toString(CryptoJS.enc.Utf8)
+        : null;
+
+    // Convert the decrypted value to a number
+    const campusNumber = decryptedCampusValue ? Number(decryptedCampusValue) : null;
+
+    console.log("Decrypted Campus Value:", campusNumber);
+
+    if (campusNumber == null) {
+        console.error("Invalid campus number");
+        return [];
+    }
+
+    // Define a mapping of campus numbers to archive arrays
+    const campusArchivesMap: { [key: number]: any[] } = {
+        1: this.archives.filter(archive => archive.encoder === campusNumber),
+        2: this.archives.filter(archive => archive.encoder === campusNumber),
+        3: this.archives.filter(archive => archive.encoder === campusNumber),
+        4: this.archives.filter(archive => archive.encoder === campusNumber),
+    };
+
+    // Get the filtered archives based on the campus number
+    const filteredArchives = campusArchivesMap[campusNumber] || [];
+
+    console.log("Filtered Archives:", filteredArchives);
+
+    // Map the filtered archives to final archives
+    const finalArchives = filteredArchives.map((archive) => {
+        const user = this.users.find((user) => user.userId.toString() === archive.attention);
+        const sender = this.users.find((sender) => sender.userId.toString() === archive.from);
+        const receiverNames = archive.attention
+            ? archive.attention.split(',').map((att: string) => {
+                const receiver = this.users.find((user) => user.userId.toString() === att.trim());
+                return receiver ? receiver.name : 'Unknown Receiver';
+            }).filter((name: string) => name !== '').join(', ')
+            : 'Unknown Receiver';
+
+        return {
+            ...archive,
+            userName: user ? user.name : 'Unknown User',
+            userNameSender: sender ? sender.name : 'Unknown Sender',
+            receiverNames: receiverNames
+        };
     });
 
-    console.log("Final:", finalArchives);
+    console.log("Final Archives:", finalArchives);
     return finalArchives;
 }
   
