@@ -35,7 +35,6 @@ export class CredentialsComponent {
         })
       ).subscribe(response => {
         this.currentPassword = response;
-        console.log('Current password:', this.currentPassword);
       });
     }
 
