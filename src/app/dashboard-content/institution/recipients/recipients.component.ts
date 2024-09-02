@@ -128,7 +128,7 @@ export class RecipientsComponent {
       width: '500px',
       data: {
         userId: user.userId,       // Pass the selected user data
-        userArray: this.userArray // Pass the user array
+        userArray: user // Pass the user array
       }
     });
   

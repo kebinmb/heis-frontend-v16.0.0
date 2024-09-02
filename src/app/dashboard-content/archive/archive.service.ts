@@ -11,10 +11,12 @@ export class ArchiveService {
   constructor(private http:HttpClient) { }
  
 
-  getArchives():Observable<any[]>{
-    return this.http.get(`${this.apiServerUrl}/archives/documents`,{responseType:'text'}).pipe(
+  getArchives(name:string):Observable<any[]>{
+    return this.http.get(`${this.apiServerUrl}/archives/documents`,{params: { name: name.toString() },
+    responseType: 'text',}).pipe(
       map((response:any)=>{
         try{
+          console.log("Name from service",name);
           return JSON.parse(response);
         }catch(e){
           console.error('Failed to parse response',e)

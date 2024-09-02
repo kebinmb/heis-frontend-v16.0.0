@@ -79,6 +79,9 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
+            "ssl": true,
+            "sslKey": "key.pem",
+            "sslCert": "cert.pem",
             "browserTarget": "heis-frontend-v16.0.0:build"
           }
         },

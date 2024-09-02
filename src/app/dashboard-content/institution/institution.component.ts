@@ -165,8 +165,8 @@ private refreshData(): void {
   window.location.reload() // Reload the institutions data
 }
 
-editDepartmentDetails(id: number, department: any): void {
-  this.institutionService.editDepartmentDetails(id, department).subscribe(
+editDepartmentDetails(id: number, department: any, name:string): void {
+  this.institutionService.editDepartmentDetails(id, department,name).subscribe(
     (response: any) => {
       // console.log('Department updated successfully', response);
       // Add any additional logic for success, like showing a success message

@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
@@ -44,8 +44,10 @@ addNewDepartment(formData: FormData): Observable<string> {
   );
 }
 
-editDepartmentDetails(id: number, department: any): Observable<any> {
+editDepartmentDetails(id: number, department: any,name:string): Observable<any> {
+  const params = new HttpParams().set('name', name);
   return this.http.put<any>(`${this.apiServerUrl}/department/edit/${id}`, department, {
+    params: params,
     responseType: 'json'
   }).pipe(
     catchError(this.handleError)
@@ -79,8 +81,10 @@ getTotalUser(){
   );
 }
 
-editUserDetails(id: number, user: any): Observable<any> {
+editUserDetails(id: number, user: any,name:string): Observable<any> {
+  const params = new HttpParams().set('name', name);
   return this.http.put<any>(`${this.apiServerUrl}/department/edit/user/${id}`, user, {
+    params:params,
     responseType: 'json'
   }).pipe(
     catchError(this.handleError)

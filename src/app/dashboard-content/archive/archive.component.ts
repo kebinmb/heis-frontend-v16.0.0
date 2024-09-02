@@ -59,7 +59,7 @@ filteredFortuneTowneArchives:any[] = [];
   constructor(
     private store: Store<{ userList: UserArchiveState; archives: ArchiveState }>,
     public dialog: MatDialog,
-    private archivesService: ArchiveService
+    
   ) {
     this.archivesArray$ = this.store.pipe(select(selectArchive));
     this.userListArray$ = this.store.pipe(select(selectUserList));
@@ -75,6 +75,7 @@ filteredFortuneTowneArchives:any[] = [];
 
   loadData() {
     this.isLoading = true;
+    console.log("load Data")
   
     combineLatest([this.userListArray$, this.archivesArray$]).pipe(
       switchMap(([users, archives]) => {
@@ -82,12 +83,13 @@ filteredFortuneTowneArchives:any[] = [];
           this.users = users;
         } else {
           this.store.dispatch(loadUserArchiveList());
+          this.store.dispatch(loadArchiveList());
         }
         if (archives && archives.length > 0) {
           this.archives = archives;
           this.finalArchivesArray = this.processArchivesAndCache();
         } else {
-          this.store.dispatch(loadArchiveList());
+         
         }
         
         this.dataSourceArchives = new MatTableDataSource(this.finalArchivesArray);
@@ -116,7 +118,7 @@ filteredFortuneTowneArchives:any[] = [];
 
   processArchivesAndCache() {
     const encryptedCampusValue = sessionStorage.getItem('campus');
-
+    console.log("procees archive")
     // Decrypt the campus value
     const decryptedCampusValue = encryptedCampusValue
         ? CryptoJS.AES.decrypt(encryptedCampusValue, 'chmsu.edu.ph.secret-key.secret').toString(CryptoJS.enc.Utf8)
@@ -164,7 +166,7 @@ filteredFortuneTowneArchives:any[] = [];
         };
     });
 
-    // console.log("Final:", finalArchives);
+    console.log("Final:", finalArchives);
     return finalArchives;
 }
   

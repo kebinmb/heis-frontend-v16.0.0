@@ -76,6 +76,7 @@ import { UserMaintenanceLogsComponent } from './user-maintenance-logs/user-maint
 import { CredentialsComponent } from './credentials/credentials.component';
 import { CredentialsLogsComponent } from './credentials-logs/credentials-logs.component';
 import { HeaderPrintComponent } from './header-print/header-print.component';
+import { ActivitylogsComponent } from './activitylogs/activitylogs.component';
 
 
 @NgModule({
@@ -100,6 +101,7 @@ import { HeaderPrintComponent } from './header-print/header-print.component';
     UserMaintenanceLogsComponent,
     CredentialsComponent,
     CredentialsLogsComponent,
+    ActivitylogsComponent,
  
 
  

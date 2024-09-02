@@ -1,6 +1,7 @@
 export const environment = {
     production: false,
-    apiBaseUrl: 'http://localhost:8085/heis-0.0.1',
+    apiBaseUrl:'https://heis-backend-test.chmsu.edu.ph',
+    // apiBaseUrl:'http://localhost:8080',
     emailConfig: {
       primaryUsername: 'johnkevin.moraca@chmsu.edu.ph',
       primaryPassword: 'pbxa jpbh ojzn yjke',

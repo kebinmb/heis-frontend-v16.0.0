@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { InstitutionService } from '../institution.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import * as CryptoJS from 'crypto-js';
 @Component({
   selector: 'app-edit-recipients-modal',
   templateUrl: './edit-recipients-modal.component.html',
@@ -22,6 +22,17 @@ export class EditRecipientsModalComponent implements OnInit {
 
   ngOnInit(): void {
     // console.log("Modal Data:", this.user.userId);
+    console.log(this.data.userArray.name);
+    this.user.name= this.data.userArray.name;
+    this.user.designation = this.data.userArray.designation || "No Designation";
+    this.user.departmentId = this.data.userArray.departmentId;
+    this.user.campus = this.data.userArray.campus;
+    this.user.companyName = this.data.userArray.companyName;
+    this.user.accessLevel = this.data.userArray.accessLevel;
+    this.user.employeeType = this.data.userArray.employeeType;
+    this.user.permanent = this.data.userArray.permanent;
+    this.user.emailReceiver = this.data.userArray.emailReceiver;
+    this.user.email = this.data.userArray.email;
   }
 
   onSubmit(): void {
@@ -39,8 +50,13 @@ export class EditRecipientsModalComponent implements OnInit {
         emailReceiver: 1,
         email: this.user.email
       };
-
-      this.institutionService.editUserDetails(updatedUser.userId, updatedUser).subscribe(
+      const encryptedName = sessionStorage.getItem('username');
+      let decryptedName = '';
+      if(encryptedName){
+        const bytes = CryptoJS.AES.decrypt(encryptedName, 'chmsu.edu.ph.secret-key.secret');
+        decryptedName = bytes.toString(CryptoJS.enc.Utf8);
+      }
+      this.institutionService.editUserDetails(updatedUser.userId, updatedUser,decryptedName).subscribe(
         (response: any) => {
           const snackBarRef = this.snackBar.open('User updated successfully!', 'Close', {
             duration: 3000,

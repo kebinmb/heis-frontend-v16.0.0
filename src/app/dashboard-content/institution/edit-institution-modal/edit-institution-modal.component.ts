@@ -10,6 +10,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import * as CryptoJS from 'crypto-js';
 @Component({
   selector: 'app-edit-institution-modal',
   standalone: true,
@@ -44,8 +45,13 @@ export class EditInstitutionModalComponent implements OnInit {
         emailReceiver: this.institution.emailReceiver,
         departmentId: this.institution.department?.departmentId // Ensure departmentId is present
       };
-
-      this.institutionService.editDepartmentDetails(updatedDepartment.departmentId, updatedDepartment).subscribe(
+      const encryptedName = sessionStorage.getItem('username');
+      let decryptedName = '';
+      if(encryptedName){
+        const bytes = CryptoJS.AES.decrypt(encryptedName, 'chmsu.edu.ph.secret-key.secret');
+        decryptedName = bytes.toString(CryptoJS.enc.Utf8);
+      }
+      this.institutionService.editDepartmentDetails(updatedDepartment.departmentId, updatedDepartment,decryptedName).subscribe(
         (response: any) => {
           const snackBarRef = this.snackBar.open('Department updated successfully!', 'Close', {
             duration: 3000,
