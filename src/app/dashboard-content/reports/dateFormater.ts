@@ -8,5 +8,5 @@ export function formatDateToYYYYMMDD(date: Date): string {
   // Usage
   const currentDate = new Date();
   const formattedDate = formatDateToYYYYMMDD(currentDate);
-  // console.log(formattedDate); // Outputs: '2024-05-16' (or the current date in the desired format)
+  // //console.log(formattedDate); // Outputs: '2024-05-16' (or the current date in the desired format)
   

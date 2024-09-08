@@ -14,13 +14,13 @@ export class UserArchiveEffects {
       mergeMap(() => {
         if (this.cache) {
           // If cache exists, use cached data
-          // console.log('Using cached user list:', this.cache);
+          // //console.log('Using cached user list:', this.cache);
           return of(loadUserArchiveListSuccess({ userList: this.cache }));
         } else {
           // If no cache, fetch from service
           return this.archivesService.getUserList().pipe(
             tap(userList => {
-              // console.log('Users from Archive Effects:', userList);
+              // //console.log('Users from Archive Effects:', userList);
               this.cache = userList; // Cache the fetched data
             }),
             map(userList => loadUserArchiveListSuccess({ userList })),

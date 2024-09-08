@@ -75,7 +75,7 @@ filteredFortuneTowneArchives:any[] = [];
 
   loadData() {
     this.isLoading = true;
-    console.log("load Data")
+    //console.log("load Data")
   
     combineLatest([this.userListArray$, this.archivesArray$]).pipe(
       switchMap(([users, archives]) => {
@@ -118,7 +118,7 @@ filteredFortuneTowneArchives:any[] = [];
 
   processArchivesAndCache() {
     const encryptedCampusValue = sessionStorage.getItem('campus');
-    console.log("procees archive")
+    //console.log("procees archive")
     // Decrypt the campus value
     const decryptedCampusValue = encryptedCampusValue
         ? CryptoJS.AES.decrypt(encryptedCampusValue, 'chmsu.edu.ph.secret-key.secret').toString(CryptoJS.enc.Utf8)
@@ -127,7 +127,7 @@ filteredFortuneTowneArchives:any[] = [];
     // Convert the decrypted value to a number
     const campusNumber = decryptedCampusValue ? Number(decryptedCampusValue) : null;
 
-    console.log("Decrypted Campus Value:", campusNumber);
+    //console.log("Decrypted Campus Value:", campusNumber);
 
     if (campusNumber == null) {
         console.error("Invalid campus number");
@@ -145,7 +145,7 @@ filteredFortuneTowneArchives:any[] = [];
     // Get the filtered archives based on the campus number
     const filteredArchives = campusArchivesMap[campusNumber] || [];
 
-    console.log("Filtered Archives:", filteredArchives);
+    //console.log("Filtered Archives:", filteredArchives);
 
     // Map the filtered archives to final archives
     const finalArchives = filteredArchives.map((archive) => {
@@ -166,7 +166,7 @@ filteredFortuneTowneArchives:any[] = [];
         };
     });
 
-    console.log("Final:", finalArchives);
+    //console.log("Final:", finalArchives);
     return finalArchives;
 }
   

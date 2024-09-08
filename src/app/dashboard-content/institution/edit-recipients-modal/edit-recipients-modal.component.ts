@@ -21,8 +21,8 @@ export class EditRecipientsModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // console.log("Modal Data:", this.user.userId);
-    console.log(this.data.userArray.name);
+    // //console.log("Modal Data:", this.user.userId);
+    //console.log(this.data.userArray.name);
     this.user.name= this.data.userArray.name;
     this.user.designation = this.data.userArray.designation || "No Designation";
     this.user.departmentId = this.data.userArray.departmentId;

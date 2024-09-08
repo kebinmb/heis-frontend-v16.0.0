@@ -70,7 +70,7 @@ export class EmailIndividualComponent implements OnInit {
       attachment: ['', Validators.required],
       campus: [4, Validators.required],
       cc: this.formBuilder.array([]),
-      encoder: [0, Validators.required],
+      encoder: ['4', Validators.required],
       message: ['', Validators.required],
       departmentId: [''],
       username:[''],
@@ -151,7 +151,7 @@ export class EmailIndividualComponent implements OnInit {
     this.emailService.nextDocumentNumber().subscribe({
       next: (count) => {
         this.nextDocumentNumber = count;
-        // console.log('Total documents:', this.nextDocumentNumber);
+        // //console.log('Total documents:', this.nextDocumentNumber);
       },
       error: (error) => {
         console.error('Error fetching the total document count', error);
@@ -205,8 +205,9 @@ export class EmailIndividualComponent implements OnInit {
     formData.append('pageCount', pageCount.toString());
     formData.append('campus', campus.toString());
     formData.append('cc', cc);
-    this.getUserIdAsEncoder();
-    formData.append('encoder', this.userIdAsEncoder.toString());
+    // this.getUserIdAsEncoder();
+    // formData.append('encoder', this.userIdAsEncoder.toString());
+    formData.append('encoder', encoder.toString());
     formData.append('message', message);
     formData.append('username', this.emailConfigService.getCredentials().username);
     formData.append('password', this.emailConfigService.getCredentials().password);
@@ -299,7 +300,7 @@ export class EmailIndividualComponent implements OnInit {
   private handleUsersResponse(users: any[]) {
     try {
       this.usersName = users.map((user) => user.name);
-      // console.log(this.usersName);
+      // //console.log(this.usersName);
     } catch (error) {
       this.handleUsersError(error);
     }
@@ -323,7 +324,7 @@ export class EmailIndividualComponent implements OnInit {
       );
       if (matchedUser) {
         this.emailAddress = matchedUser.email;
-        // console.log(this.emailAddress);
+        // //console.log(this.emailAddress);
       } else {
         console.error('No user found with the provided name');
       }
@@ -341,7 +342,7 @@ export class EmailIndividualComponent implements OnInit {
       );
       if (matchedUser) {
         this.attentionAddress = matchedUser.email;
-        // console.log(this.attentionAddress);
+        // //console.log(this.attentionAddress);
       } else {
         this.snackbar.open('No user found with the provided name', "Close",{
           duration:3000,
@@ -384,7 +385,7 @@ export class EmailIndividualComponent implements OnInit {
       );
       if (matchedUser) {
         this.fromAddress = matchedUser.email;
-        // console.log(this.fromAddress);
+        // //console.log(this.fromAddress);
       } else {
         console.error('No user found with the provided name');
       }

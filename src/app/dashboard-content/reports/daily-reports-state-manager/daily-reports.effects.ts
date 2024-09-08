@@ -23,7 +23,7 @@ export class DailyReportEffects {
             const validReports = reports
               .filter((report: any) => report && report.documentNumber)
               .map((report: any) => ({ ...report }));
-              // console.log('Valid Daily Reports:', validReports);
+              // //console.log('Valid Daily Reports:', validReports);
             return loadDailyReportsSuccess({ reports: validReports });
           }),
           catchError(error => of(loadDailyReportsFailure({ error })))

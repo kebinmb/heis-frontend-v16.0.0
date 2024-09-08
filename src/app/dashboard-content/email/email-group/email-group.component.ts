@@ -153,7 +153,7 @@ export class EmailGroupComponent implements OnInit {
         this.emailGroupService.sendEmail(formData).subscribe({
           next: (response) => {
             this.loading = false;
-            // console.log('Document sent and file uploaded successfully:', response);
+            // //console.log('Document sent and file uploaded successfully:', response);
             this.snackBar.open("Document was sent successfully","Close",{
               duration:3000,
               horizontalPosition:'right',
@@ -401,7 +401,7 @@ export class EmailGroupComponent implements OnInit {
     const matchedUser = users.find((user: any) => user.name === userInputName);
     if (matchedUser) {
       this.emailAddressThrough = matchedUser.email;
-      // console.log(this.emailAddressThrough);
+      // //console.log(this.emailAddressThrough);
     } else {
       console.error('No user found with the provided name');
     }
@@ -415,7 +415,7 @@ export class EmailGroupComponent implements OnInit {
     const matchedUser = users.find((user: any) => user.name === userInputName);
     if (matchedUser) {
       this.fromAddressEmail = matchedUser.email;
-      // console.log(this.fromAddressEmail);
+      // //console.log(this.fromAddressEmail);
     } else {
       console.error('No user found with the provided name');
     }

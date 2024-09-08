@@ -21,7 +21,7 @@ export class LoginComponent {
   onLogin() {
     this.loginService.loginAuthentication(this.username, this.password).subscribe({
       next: (response: any) => {
-        console.log(response.user.name);
+        //console.log(response.user.name);
         const encryptedUsername = CryptoJS.AES.encrypt(response.user.username.toString(), this.secretKey).toString();
         const encryptedAccessLevel = CryptoJS.AES.encrypt(response.user.accessLevel.toString(), this.secretKey).toString();
         const encryptedCampus = CryptoJS.AES.encrypt(response.user.campus.toString(), this.secretKey).toString();
@@ -39,7 +39,7 @@ export class LoginComponent {
         });
       },
       error: (error: any) => {
-        console.log(error);
+        //console.log(error);
         this.snackBar.open("Login Failed", "Close", {
           duration: 3000, // Duration in milliseconds
           horizontalPosition: 'right',

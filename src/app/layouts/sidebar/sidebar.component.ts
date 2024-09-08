@@ -18,6 +18,6 @@ export class SidebarComponent {
     // Convert the decrypted value to a number
     const campusNumber = decryptedCampusValue ? Number(decryptedCampusValue) : null;
     this.campus = campusNumber;
-    console.log("Decrypted Campus Value:", campusNumber);
+    //console.log("Decrypted Campus Value:", campusNumber);
   }
 }

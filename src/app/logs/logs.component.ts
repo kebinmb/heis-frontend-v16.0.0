@@ -51,7 +51,7 @@ displayedColumns: string[] = ['date', 'userName', 'action'];
       console.warn('No campus data found in sessionStorage.');
     }
 
-    // console.log('Decrypted Campus:', decryptedCampus);
+    // //console.log('Decrypted Campus:', decryptedCampus);
 
     // Use the decrypted value or handle null case
     this.loadAuthenticationLogs(this.currentDate, decryptedCampus);
@@ -61,7 +61,7 @@ displayedColumns: string[] = ['date', 'userName', 'action'];
     this.logsService.getLogs(date, campus).subscribe({
       next: (response) => {
         this.logs = response;
-        // console.log(this.logs);
+        // //console.log(this.logs);
         this.userLogsListArray$.subscribe(userList => {
           this.userArray = userList;
           // Assuming userList is an array of users and you want to find users matching log userId
@@ -73,7 +73,7 @@ displayedColumns: string[] = ['date', 'userName', 'action'];
             };
           });
         });
-        // console.log("Final Logs:",this.finalLogsArray)
+        // //console.log("Final Logs:",this.finalLogsArray)
       },
       error: (error) => {
         console.error(error);
@@ -104,7 +104,7 @@ displayedColumns: string[] = ['date', 'userName', 'action'];
         console.warn('No campus data found in sessionStorage.');
       }
 
-      // console.log('Decrypted Campus:', decryptedCampus);
+      // //console.log('Decrypted Campus:', decryptedCampus);
       this.loadAuthenticationLogs(this.currentDate, decryptedCampus);
     }
   }

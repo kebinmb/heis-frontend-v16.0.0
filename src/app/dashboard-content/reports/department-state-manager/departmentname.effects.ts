@@ -22,8 +22,8 @@ export class DepartmentNamesEffect {
           userList: this.reportsService.getUserList()
         }).pipe(
           map(({ departmentList, userList }) => {
-            // console.log('Fetched Department List:', departmentList);
-            // console.log('User List From Department Effects:', userList);
+            // //console.log('Fetched Department List:', departmentList);
+            // //console.log('User List From Department Effects:', userList);
 
             // Filter and map department names
             const departmentNames = departmentList
@@ -65,7 +65,7 @@ export class DepartmentNamesEffect {
               }
             );
 
-            // console.log('Final Monthly Reports Array with Receivers:', finalMonthlyReports);
+            // //console.log('Final Monthly Reports Array with Receivers:', finalMonthlyReports);
 
             return updateFinalMonthlyReports({ finalMonthlyReports });
           }),

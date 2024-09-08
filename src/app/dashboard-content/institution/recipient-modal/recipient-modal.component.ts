@@ -48,7 +48,7 @@ export class RecipientModalComponent {
     this.institutionService.getTotalUser().subscribe({
       next: (res: number) => {
         this.totalUser = res;
-        // console.log('Total User:',this.totalUser);
+        // //console.log('Total User:',this.totalUser);
       },
       error: (error: any) => {
         console.error('Error fetching total users:', error);
@@ -70,12 +70,12 @@ export class RecipientModalComponent {
       const formValues = this.recipientForm.value;
   
       // For demonstration, log form values
-      // console.log('Form Values:', formValues);
+      // //console.log('Form Values:', formValues);
   
       // Call the service to add a new user and handle the response
       this.institutionService.addNewUser(formValues).subscribe({
         next: (response) => {
-          // console.log('User added successfully:', response);
+          // //console.log('User added successfully:', response);
           // Optionally, provide feedback to the user
           this.snackBar.open('User added successfully!', 'Close', { duration: 3000 });
           // Reset the form if necessary

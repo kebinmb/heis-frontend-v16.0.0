@@ -83,8 +83,8 @@ export class EmailMultipleComponent implements OnInit {
     this.getUsersName();
     this.setupAutocompleteFilters();
     this.getSenderDepartmentId();
-    // console.log("aa")
-    // console.log(this.senderDepartmentId);
+    // //console.log("aa")
+    // //console.log(this.senderDepartmentId);
   }
 
   private setupAutocompleteFilters(): void {
@@ -153,7 +153,7 @@ export class EmailMultipleComponent implements OnInit {
     try {
       const userInputName = this.emailForm.value.from;
       const users: any = await firstValueFrom(this.emailMultipleService.getAllUserDetails());
-      // console.log(users);
+      // //console.log(users);
       const matchedUser = users.find((user: any) => user.name === userInputName);
       this.senderDepartmentId = matchedUser ? matchedUser.departmentId : 0;
     } catch (error) {

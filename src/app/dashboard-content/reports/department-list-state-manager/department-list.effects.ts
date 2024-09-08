@@ -13,7 +13,7 @@ export class DepartmentEffects{
         mergeMap(()=>
         this.reportsService.getDepartmentDetails().pipe(
             map(departmentList=>{
-                // console.log('Fetched Department List:',departmentList);
+                // //console.log('Fetched Department List:',departmentList);
                 return loadDepartmentListSuccess({departmentList});
             }),
             catchError(error=>{

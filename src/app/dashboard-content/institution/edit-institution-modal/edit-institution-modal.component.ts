@@ -33,8 +33,8 @@ export class EditInstitutionModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // console.log("Modal Data:", this.institution);
-    // console.log("Department Id:", this.institution.department?.departmentId);
+    // //console.log("Modal Data:", this.institution);
+    // //console.log("Department Id:", this.institution.department?.departmentId);
   }
 
   onSubmit(): void {

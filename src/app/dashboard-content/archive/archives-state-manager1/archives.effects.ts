@@ -23,13 +23,13 @@ export class ArchiveEffects {
                 if (this.cachedArchives) {
                     
                     // Use cached data if available
-                    console.log('Using cached archives:', this.cachedArchives);
+                    //console.log('Using cached archives:', this.cachedArchives);
                     return of(loadArchivesListSuccess({ archives: this.cachedArchives }));
                 } else {
                     // Fetch data from the service and cache it
                     return this.archivesService.getArchives(decryptedName).pipe(
                         map(archives => {
-                            console.log('Fetched archives:', archives);
+                            //console.log('Fetched archives:', archives);
                             this.cachedArchives = archives; // Cache the fetched data
                             return loadArchivesListSuccess({ archives });
                         }),

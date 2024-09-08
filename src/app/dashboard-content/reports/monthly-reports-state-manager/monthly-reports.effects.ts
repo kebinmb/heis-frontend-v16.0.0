@@ -21,8 +21,8 @@ export class MonthlyReportsEffects{
                     const validMonthlyreports = monthlyReports
                     .filter((monthlyReports:any)=>monthlyReports && monthlyReports.documentNumber)
                     .map((monthlyReports:any)=>({...monthlyReports}));
-                    // console.log('Valid Monthly Reports:',validMonthlyreports);
-                    // console.log('Monthly Reports Length:',validMonthlyreports.length)
+                    // //console.log('Valid Monthly Reports:',validMonthlyreports);
+                    // //console.log('Monthly Reports Length:',validMonthlyreports.length)
                     return loadMonthlyReportsSuccess({monthlyReports:validMonthlyreports});
                 }),
                 catchError(error=> of(loadMonthlyReportsFailure({error})))

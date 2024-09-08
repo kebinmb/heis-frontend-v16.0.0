@@ -17,7 +17,7 @@ apiBaseUrl = environment.apiBaseUrl;
     return (this.http.get(`${this.apiBaseUrl}/logs/usercredlogs`,{params,responseType:'text'}).pipe(
       map((response:any)=>{
         try{
-          // console.log("Credentials Logs From Service:",response)
+          // //console.log("Credentials Logs From Service:",response)
           return JSON.parse(response);
         }catch(e){
           console.error('Failed to parse response',e);

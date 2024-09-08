@@ -58,11 +58,11 @@
 //         // Decrypt `name` from `sessionStorage`
 //         const encryptedName = sessionStorage.getItem('username');
 //         let decryptedName = '';
-//         console.log("Encrypted Name:",encryptedName)
+//         //console.log("Encrypted Name:",encryptedName)
 //         if (encryptedName) {
 //           const bytes = CryptoJS.AES.decrypt(encryptedName, 'chmsu.edu.ph.secret-key.secret');
 //           decryptedName = bytes.toString(CryptoJS.enc.Utf8);
-//           console.log(decryptedName);
+//           //console.log(decryptedName);
 //         }
 
 //         if (documentList.length > 0) {
