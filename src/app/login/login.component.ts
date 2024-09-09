@@ -31,7 +31,7 @@ export class LoginComponent {
         sessionStorage.setItem("access_level", encryptedAccessLevel);
         sessionStorage.setItem("campus", encryptedCampus);
         sessionStorage.setItem("name", encryptedName);
-        this.routes.navigate(["/dashboard"]);
+        this.routes.navigate(["/dashboard/archives"]);
         this.snackBar.open("Login Successful", "Close", {
           duration: 3000, // Duration in milliseconds
           horizontalPosition: 'right',

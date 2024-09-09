@@ -8,29 +8,36 @@ import {
   loadDailyReportsSuccess,
   loadDailyReportsFailure
 } from '../daily-reports-state-manager/daily-report.actions';
-
+import * as CryptoJS from 'crypto-js';
 @Injectable()
 export class DailyReportEffects {
   loadDailyReports$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(loadDailyReports),
-      mergeMap(action =>
-        this.reportsService.getDailyReports(action.date).pipe(
-          map(reports => {
-            if (!Array.isArray(reports)) {
-              throw new Error('Expected an array of reports');
+        ofType(loadDailyReports),
+        mergeMap(action => {
+            const encryptedName = sessionStorage.getItem('username');
+            let decryptedName = '';
+            if (encryptedName) {
+                const bytes = CryptoJS.AES.decrypt(encryptedName, 'chmsu.edu.ph.secret-key.secret');
+                decryptedName = bytes.toString(CryptoJS.enc.Utf8);
             }
-            const validReports = reports
-              .filter((report: any) => report && report.documentNumber)
-              .map((report: any) => ({ ...report }));
-              // //console.log('Valid Daily Reports:', validReports);
-            return loadDailyReportsSuccess({ reports: validReports });
-          }),
-          catchError(error => of(loadDailyReportsFailure({ error })))
-        )
-      )
+
+            return this.reportsService.getDailyReports(action.date, decryptedName).pipe(
+                map(reports => {
+                    if (!Array.isArray(reports)) {
+                        throw new Error('Expected an array of reports');
+                    }
+                    const validReports = reports
+                        .filter((report: any) => report && report.documentNumber)
+                        .map((report: any) => ({ ...report }));
+                    // //console.log('Valid Daily Reports:', validReports);
+                    return loadDailyReportsSuccess({ reports: validReports });
+                }),
+                catchError(error => of(loadDailyReportsFailure({ error })))
+            );
+        })
     )
-  );
+);
 
 
 

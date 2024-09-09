@@ -97,7 +97,7 @@
               </ng-container>
               <!-- From Column -->
               <ng-container matColumnDef="from">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>From</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Sender</th>
                 <td mat-cell *matCellDef="let element">{{ element.name }}</td>
               </ng-container>
               <!-- Subject Column -->
@@ -112,10 +112,10 @@
               <!-- Time Stamp Column -->
               <ng-container matColumnDef="timeStamp">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                  Time Stamp
+                  Date of Letter
                 </th>
                 <td mat-cell *matCellDef="let element">
-                  {{ element.timestamp | date : "MMMM dd, yyyy" }}
+                  {{ element.timestamp | date : "MMMM dd, yyyy hh:mm aa" }}
                 </td>
               </ng-container>
               <!-- Header and Row Definitions -->
@@ -178,33 +178,53 @@
               </ng-container>
 
               <!-- From Column -->
+              <ng-container matColumnDef="letterType">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Letter Type
+                </th>
+                <td mat-cell *matCellDef="let element">
+                  <ng-container [ngSwitch]="element.type">
+                    <ng-container *ngSwitchCase="1">Memo</ng-container>
+                    <ng-container *ngSwitchCase="2">Letter</ng-container>
+                    <ng-container *ngSwitchCase="3"
+                      >Special Orders</ng-container
+                    >
+                    <ng-container *ngSwitchCase="4"
+                      >President's Memo</ng-container
+                    >
+                    <ng-container *ngSwitchCase="5">Other Memo's</ng-container>
+                  </ng-container>
+                </td>
+              </ng-container>
+
+              <!-- Department Column -->
               <ng-container matColumnDef="from">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>
                   Sender
                 </th>
-                <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-              </ng-container>
-
-              <!-- Department Column -->
-              <ng-container matColumnDef="department">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                  Department
-                </th>
                 <td mat-cell *matCellDef="let element">
-                  {{ element.departmentName }}
+                  {{ element.name || 'No available sender'}}
                 </td>
               </ng-container>
 
               <!-- Receiver Column -->
-              <ng-container matColumnDef="receiver">
+              <ng-container matColumnDef="subject">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                  Receiver
+                  Subject
                 </th>
                 <td mat-cell *matCellDef="let element">
-                  {{ element.receiverName }}
+                  {{ element.subject || 'No available subject' }}
                 </td>
               </ng-container>
-
+              <!--Timestamp-->
+              <ng-container matColumnDef="timestamp">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Timestamp
+                </th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.timestamp | date : "MMMM dd, yyyy hh:mm aa"  }}
+                </td>
+              </ng-container>
               <!-- Header and Row Definitions -->
               <tr
                 mat-header-row
@@ -303,41 +323,63 @@
               </ng-container>
 
               <!-- From Column -->
+              <ng-container matColumnDef="letterType">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Letter Type
+                </th>
+                <td mat-cell *matCellDef="let element">
+                  <ng-container [ngSwitch]="element.type">
+                    <ng-container *ngSwitchCase="1">Memo</ng-container>
+                    <ng-container *ngSwitchCase="2">Letter</ng-container>
+                    <ng-container *ngSwitchCase="3"
+                      >Special Orders</ng-container
+                    >
+                    <ng-container *ngSwitchCase="4"
+                      >President's Memo</ng-container
+                    >
+                    <ng-container *ngSwitchCase="5">Other Memo's</ng-container>
+                  </ng-container>
+                </td>
+              </ng-container>
+
+              <!-- Department Column -->
               <ng-container matColumnDef="from">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>
                   Sender
                 </th>
-                <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-              </ng-container>
-
-              <!-- Department Column -->
-              <ng-container matColumnDef="department">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                  Department
-                </th>
                 <td mat-cell *matCellDef="let element">
-                  {{ element.departmentName }}
+                  {{ element.name || 'No available sender' }}
                 </td>
               </ng-container>
 
               <!-- Receiver Column -->
-              <ng-container matColumnDef="receiver">
+              <ng-container matColumnDef="subject">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                  Receiver
+                  Subject
                 </th>
                 <td mat-cell *matCellDef="let element">
-                  {{ element.receiverNames }}
+                  {{ element.subject || 'No available subject' }}
                 </td>
               </ng-container>
+
+              <ng-container matColumnDef="timestamp">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Timestamp
+                </th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.timestamp | date : "MMMM dd, yyyy hh:mm aa" }}
+                </td>
+              </ng-container>
+              
 
               <!-- Header and Row Definitions -->
               <tr
                 mat-header-row
-                *matHeaderRowDef="displayedColumnsMonthly"
+                *matHeaderRowDef="displayedColumnsExternal"
               ></tr>
               <tr
                 mat-row
-                *matRowDef="let row; columns: displayedColumnsMonthly"
+                *matRowDef="let row; columns: displayedColumnsExternal"
               ></tr>
             </table>
           </div>

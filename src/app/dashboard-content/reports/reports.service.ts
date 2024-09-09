@@ -10,8 +10,8 @@ export class ReportsService {
   private apiServerUrl = environment.apiBaseUrl;
   constructor(private http:HttpClient) { }
 
-  getDailyReports(date:string):Observable<any[]>{
-    return this.http.get(`${this.apiServerUrl}/reports/daily/${date}`, { responseType: 'text' }).pipe(
+  getDailyReports(date:string,name:string):Observable<any[]>{
+    return this.http.get(`${this.apiServerUrl}/reports/daily/${date}`, {params:{name:name.toString()}, responseType: 'text' }).pipe(
       map((response: any) => {
         try {
           return JSON.parse(response);
@@ -23,8 +23,9 @@ export class ReportsService {
     );
   }
 
-  getMonthlyReports(month:string,year:string): Observable<any[]>{
-    return this.http.get(`${this.apiServerUrl}/reports/monthly/${month}/${year}`,{responseType:'text'}).pipe(
+  getMonthlyReports(month:string,year:string,name:string): Observable<any[]>{
+    
+    return this.http.get(`${this.apiServerUrl}/reports/monthly/${month}/${year}`,{params:{name:name.toString()},responseType:'text'}).pipe(
       map((response:any)=>{
         try{
           return JSON.parse(response);
@@ -49,8 +50,8 @@ export class ReportsService {
     );
   }
 
-  getExternalReports(externalDate:string,externalYear:string):Observable<any[]>{
-    return this.http.get(`${this.apiServerUrl}/reports/external/${externalDate}/${externalYear}`, { responseType: 'text' }).pipe(
+  getExternalReports(externalDate:string,externalYear:string,name:string):Observable<any[]>{
+    return this.http.get(`${this.apiServerUrl}/reports/external/${externalDate}/${externalYear}`, {params:{name:name.toString()}, responseType: 'text' }).pipe(
       map((response: any) => {
         try {
           return JSON.parse(response);

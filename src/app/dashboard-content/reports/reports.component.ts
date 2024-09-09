@@ -162,10 +162,18 @@ export class ReportsComponent implements OnInit {
   ];
   displayedColumnsMonthly: string[] = [
     'documentNumber',
+    'letterType',
     'from',
-    'department',
-    'receiver',
+    'subject',
+    'timestamp'
   ];
+  displayedColumnsExternal:string[] = [
+    'documentNumber',
+    'letterType',
+    'from',
+    'subject',
+    'timestamp'
+  ]
   dataSourceDailyReports: MatTableDataSource<any>;
   dataSourceMonthlyReports: MatTableDataSource<any>;
   dataSourceExternalMonthlyReports: MatTableDataSource<any>;
@@ -362,6 +370,7 @@ export class ReportsComponent implements OnInit {
       this.dataSourceExternalMonthlyReports = new MatTableDataSource(
         this.finalExternalMonthlyReportsArray
       );
+      console.log("External Reports",this.dataSourceExternalMonthlyReports);
       this.dataSourceExternalMonthlyReports.sort = this.sortExternalMonthlyReports;
       this.dataSourceExternalMonthlyReports.paginator = this.paginatorExternalMonthlyReports;
     });

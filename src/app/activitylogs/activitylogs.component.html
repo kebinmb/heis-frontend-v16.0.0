@@ -45,7 +45,7 @@
               <td mat-cell *matCellDef="let log">
                 {{
                   log.timestamp
-                    ? (log.timestamp | date : "shortDate")
+                    ? (log.timestamp | date : "MMMM dd, yyyy hh:mm:ss aa")
                     : "No Date Available"
                 }}
               </td>
