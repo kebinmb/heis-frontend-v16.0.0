@@ -19,7 +19,7 @@ export class DocumentDetailsModalComponent {
 
   ngOnInit(): void {
    
-    //console.log(this.data.attention);
+    ////console.log(this.data.attention);
     if (this.data.attachment) {
       const filenames = this.modalService.parseFilenames(this.data.attachment);
       this.imageUrls = this.modalService.generateUrls(filenames);

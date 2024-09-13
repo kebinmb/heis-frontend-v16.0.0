@@ -30,7 +30,7 @@
     <div *ngIf="data.attachment" class="image-container">
       <mat-card class="image-card" *ngFor="let url of imageUrls">
         <mat-card-content>
-          <img mat-card-image [src]="url" alt="Document Image">
+          <img id="card-image" mat-card-image [src]="url" alt="Document Image">
         </mat-card-content>
       </mat-card>
     </div>

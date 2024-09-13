@@ -59,7 +59,7 @@
           <div class="the-table-container" id="dailyReportsTable">
             <!-- Hidden header for print view -->
             <div id="printHeader" class="print-header">
-              <app-header-print></app-header-print>
+              <app-header-print title="DAILY REPORTS"></app-header-print>
             </div>
             <table
               mat-table
@@ -98,7 +98,7 @@
               <!-- From Column -->
               <ng-container matColumnDef="from">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Sender</th>
-                <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+                <td mat-cell *matCellDef="let element">{{ element.name || 'No available sender' }}</td>
               </ng-container>
               <!-- Subject Column -->
               <ng-container matColumnDef="subject">
@@ -130,7 +130,7 @@
           <!-- Paginator -->
           <mat-paginator
             #paginatorDaily
-            [pageSizeOptions]="[5, 10, 20, finalDailyReportsArray.length]"
+            [pageSizeOptions]="[5, 10, 20, 30, 40, 50, finalDailyReportsArray.length]"
             showFirstLastButtons
           ></mat-paginator>
         </div>
@@ -164,7 +164,7 @@
           <div class="the-table-container" id="monthlyReportsTable">
             <!--Hidden Header-->
             <div id="printHeader" class="print-header">
-              <h1>Report Header</h1>
+              <app-header-print title="MONTHLY REPORTS"></app-header-print>
             </div>
             <table mat-table [dataSource]="dataSourceMonthlyReports" matSort >
               <!-- Document Number Column -->
@@ -279,6 +279,7 @@
     </mat-tab>
     <!--External Monthly Reports-->
     <mat-tab label="External Monthly Reports Sender and Receivers">
+       <!-- Hidden header for print view -->
       <div class="container">
         <div class="table-container">
           <!-- Search Field -->
@@ -304,8 +305,9 @@
           <!--Hidden Header-->
 
           <div class="the-table-container" id="externalMonthlyReports">
+            <!-- Hidden header for print view -->
             <div id="printHeader" class="print-header">
-              <h1>Report Header</h1>
+              <app-header-print title="EXTERNAL MONTHLY REPORTS"></app-header-print>
             </div>
             <table
               mat-table

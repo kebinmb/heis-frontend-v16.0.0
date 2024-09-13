@@ -12,7 +12,7 @@ export class UserInstitutionEffects{
         mergeMap(()=>
         this.institutionService.getUserList().pipe(
             map(userInstitutionList=>{
-                // //console.log('Users from Institutions Effects:',userInstitutionList);
+                // ////console.log('Users from Institutions Effects:',userInstitutionList);
                 return loadUserInstitutionListSuccess({userInstitutionList});
             }),
             catchError(error=>{

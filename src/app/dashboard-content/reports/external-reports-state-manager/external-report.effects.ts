@@ -26,7 +26,7 @@ export class ExternalReportsEffects{
                         const validExternalReports = externalReports
                             .filter((report: any) => report && report.documentNumber)
                             .map((report: any) => ({ ...report }));
-                        // //console.log('Valid external Reports:', validExternalReports);
+                        // ////console.log('Valid external Reports:', validExternalReports);
                         return loadExternalReportsSuccess({ externalReports: validExternalReports });
                     }),
                 );

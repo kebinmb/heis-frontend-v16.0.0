@@ -70,7 +70,7 @@ export class EmailMultipleComponent implements OnInit {
       attachment: ['', Validators.required],
       campus: [4, Validators.required],
       cc: this.formBuilder.array([]),
-      encoder: [0, Validators.required],
+      encoder: ['4', Validators.required],
       message: ['', Validators.required],
       departmentId: [''],
       username:[''],
@@ -83,8 +83,8 @@ export class EmailMultipleComponent implements OnInit {
     this.getUsersName();
     this.setupAutocompleteFilters();
     this.getSenderDepartmentId();
-    // //console.log("aa")
-    // //console.log(this.senderDepartmentId);
+    // ////console.log("aa")
+    // ////console.log(this.senderDepartmentId);
   }
 
   private setupAutocompleteFilters(): void {
@@ -153,7 +153,7 @@ export class EmailMultipleComponent implements OnInit {
     try {
       const userInputName = this.emailForm.value.from;
       const users: any = await firstValueFrom(this.emailMultipleService.getAllUserDetails());
-      // //console.log(users);
+      // ////console.log(users);
       const matchedUser = users.find((user: any) => user.name === userInputName);
       this.senderDepartmentId = matchedUser ? matchedUser.departmentId : 0;
     } catch (error) {
@@ -223,7 +223,7 @@ export class EmailMultipleComponent implements OnInit {
       formData.append('type', type);
       formData.append('campus', campus);
       await this.getUserIdAsEncoder();
-      formData.append('encoder', this.userIdAsEncoder.toString());
+      formData.append('encoder', '4');
 
       const attentionEmails = await this.getAttentionEmails();
       formData.append('attention', attentionEmails);

@@ -362,7 +362,7 @@ export class ReportsComponent implements OnInit {
           externalMonthlyReportsArray: this.finalExternalMonthlyReportsArray,
         })
       );
-      // //console.log('External Reports:', externalMonthlyReportsArray)
+      // ////console.log('External Reports:', externalMonthlyReportsArray)
     });
 
     this.finalExternalMonthlyReports$.subscribe((finalExternalMonthlyReports) => {
@@ -370,11 +370,11 @@ export class ReportsComponent implements OnInit {
       this.dataSourceExternalMonthlyReports = new MatTableDataSource(
         this.finalExternalMonthlyReportsArray
       );
-      console.log("External Reports",this.dataSourceExternalMonthlyReports);
+      //console.log("External Reports",this.dataSourceExternalMonthlyReports);
       this.dataSourceExternalMonthlyReports.sort = this.sortExternalMonthlyReports;
       this.dataSourceExternalMonthlyReports.paginator = this.paginatorExternalMonthlyReports;
     });
-    // //console.log('Final External Reports:', this.finalExternalMonthlyReportsArray)
+    // ////console.log('Final External Reports:', this.finalExternalMonthlyReportsArray)
   }
 
 

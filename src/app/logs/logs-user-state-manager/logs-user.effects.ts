@@ -12,7 +12,7 @@ export class UserLogsEffects{
         mergeMap(()=>
         this.logsService.getUserList().pipe(
             map(userLogsList=>{
-                // //console.log('User from Logs Effects:',userLogsList);
+                // ////console.log('User from Logs Effects:',userLogsList);
                 return loadUserLogsListSuccess({userLogsList});
             }),
             catchError(error=>{

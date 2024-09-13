@@ -17,7 +17,7 @@ export class UserNamesEffects {
       mergeMap(action =>
         this.reportsService.getUserList().pipe(
           map(userList => {
-            // //console.log('Fetched User List:', userList); // For debugging
+            // ////console.log('Fetched User List:', userList); // For debugging
 
             // Extract user names where userId matches any from in dailyReportsArray
             const userNames = userList
@@ -28,7 +28,7 @@ export class UserNamesEffects {
                 // Add other fields as needed
               }));
 
-            // //console.log('User Names:', userNames);
+            // ////console.log('User Names:', userNames);
 
             // Update finalDailyReportsArray
             const finalDailyReports = action.dailyReportsArray.map(report => {
@@ -36,7 +36,7 @@ export class UserNamesEffects {
               return matchedUser ? { ...report, name: matchedUser.name } : report;
             });
 
-            // //console.log('Final Daily Reports Array:', finalDailyReports);
+            // ////console.log('Final Daily Reports Array:', finalDailyReports);
 
             // Dispatch actions to update state
             return updateFinalDailyReports({ finalDailyReports });

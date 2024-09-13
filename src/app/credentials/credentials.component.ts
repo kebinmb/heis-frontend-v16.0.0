@@ -62,7 +62,7 @@ export class CredentialsComponent {
       if (currentPasswordInput === this.currentPassword) {
         // Proceed with password change logic
         const newPassword = this.passwordForm.get('newPassword')?.value;
-        //console.log(this.decryptedName);
+        ////console.log(this.decryptedName);
         this.updateCredentials(this.decryptedName, newPassword);
       } else {
         console.error('Current password is incorrect.');
@@ -78,7 +78,7 @@ export class CredentialsComponent {
     if (name) {
       this.credentialsService.updateUserCredentials(name, newPassword).subscribe({
         next: () => {
-          //console.log('Password updated successfully for user:', name);
+          ////console.log('Password updated successfully for user:', name);
           // Show Snackbar on success
           this.snackBar.open('Password updated successfully.', 'Close', {
             duration: 3000, // Duration in milliseconds

@@ -81,14 +81,14 @@ loadInstitutionNamesList(){
     this.finalInstitutionArray = finalArray;
     this.dataSource.data = this.finalInstitutionArray;
     this.dataSource.paginator = this.paginator;
-    // //console.log(this.finalInstitutionArray)
+    // ////console.log(this.finalInstitutionArray)
   });
 }
 
 loadUserInstitutionList() {
   this.userInstitutionListArray$.subscribe(userInstitutionList => {
     this.userArray = userInstitutionList;
-    // //console.log('User Array:', this.userArray); // Log the array for debugging
+    // ////console.log('User Array:', this.userArray); // Log the array for debugging
    this.options = this.userArray.map(user=>({
     name:user.name,
     userId:user.userId
@@ -103,7 +103,7 @@ openDialog(): void {
   });
 
   dialogRef.afterClosed().subscribe(result => {
-    // //console.log('The dialog was closed');
+    // ////console.log('The dialog was closed');
     // Handle any result here
   });
 }
@@ -117,7 +117,7 @@ openDialogEdit(department: any): void {
   });
 
   dialogRef.afterClosed().subscribe(result => {
-    // //console.log('The dialog was closed');
+    // ////console.log('The dialog was closed');
     // Handle any result here if needed
   });
 }
@@ -168,7 +168,7 @@ private refreshData(): void {
 editDepartmentDetails(id: number, department: any, name:string): void {
   this.institutionService.editDepartmentDetails(id, department,name).subscribe(
     (response: any) => {
-      // //console.log('Department updated successfully', response);
+      // ////console.log('Department updated successfully', response);
       // Add any additional logic for success, like showing a success message
     },
     (error) => {

@@ -32,7 +32,7 @@ export class MonthlyReportsEffects{
                             .map((report: any) => ({ ...report }));
 
                         
-                        console.log(validMonthlyReports);
+                        //console.log(validMonthlyReports);
     
                         return loadMonthlyReportsSuccess({ monthlyReports: validMonthlyReports });
                     }),
